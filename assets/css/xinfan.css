@@ -55,7 +55,7 @@ body {
     flex-direction: column;
    
     /* 增加个阴影 */
-    box-shadow: 0 0 30px #2c2c2c;
+    box-shadow: 0 0 30px #4f4e4e;
     /* 同意给字体价格颜色 */
     color: var(--font_color)
 }
