@@ -5,21 +5,45 @@
 		<title></title>
 	</head>
 	
-<body>
-    <h1 align="center">网站检索</h1>
-    <p align="center">
-        <a href="http://www.google.com" target="main">Google-1</a>
-        <a href="http://www.google.com" target="main">Google-2</a>
-        <a href="http://www.google.com" target="main">Google-3</a>
-    </p>
-	  <center>
-        <iframe src="https://docs.qq.com/sheet/DTVdsYm5XTkpBYkpJ" name="mian" width="100%" height="100%" ></iframe>
-    </center>
-    <center>
-        <iframe src="https://stay206.github.io/xinfan/2023/10" name="mian" width="100%" height="100%" ></iframe>
-    </center>
-</body>
-
-
-
+    <style>
+        $(function () {
+            //时间控制每隔200毫秒检查当前页面高度以及滚动高度，测试多遍，cpu占用极少，不明显影响程序运行速度
+            window.setInterval("reinitIframe()", 200);
+        })
+         
+         
+        //iframe自适应高度,解决了动态更换页面高度无法自适应问题
+        function reinitIframe() {
+            var iframe = document.getElementById("mainFrame");
+            try {
+                //bHeight 和 dHeight 如果相等，用其一等于iframe.height 即可
+                // var bHeight = iframe.contentWindow.document.body.scrollHeight;
+                var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+                // var height = Math.max(bHeight, dHeight);
+                console.log(dHeight)
+                iframe.height = dHeight;
+            } catch (ex) { }
+        }
+        </style>
+        <body>
+            <h1 align="center">网站检索</h1>
+            <p align="center">
+                <a href="http://www.google.com" target="main">Google-1</a>
+                <a href="http://www.google.com" target="main">Google-2</a>
+                <a href="http://www.google.com" target="main">Google-3</a>
+            </p>
+              <center>
+                  
+          <iframe id="mainFrame" name="mainFrame" src="https://docs.qq.com/sheet/DTVdsYm5XTkpBYkpJ" style="width:100%;" frameborder="0" scrolling="no" onLoad="this.height=100" ></iframe>
+        
+               
+            </center>
+            <center>
+                
+          <iframe id="mainFrame" name="mainFrame" src="https://stay206.github.io/xinfan/2023/10" style="width:100%;" frameborder="0" scrolling="" onLoad="this.height=100" ></iframe>
+        
+               
+            </center>
+        </body>
+        
 </html>
