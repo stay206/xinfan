@@ -53,7 +53,7 @@ body {
     align-items: center;
     /* flex 子元素 纵向排列 */
     flex-direction: column;
-   
+
     /* 增加个阴影 */
     box-shadow: 0 0 30px #4f4e4e;
     /* 同意给字体价格颜色 */
@@ -79,7 +79,8 @@ body {
     height: 100%;
     background-image: linear-gradient(to top, #333, transparent);
 }
-.card:hover .photo::before{
+
+.card:hover .photo::before {
     /* 缩小时隐藏 */
     display: none;
 }
