@@ -28,7 +28,7 @@ html {
 body {
     width: 100vw;
     height: 100vh;
-    background-image: url("https://www.dmoe.cc/random.php");
+    background-color: var(--background-color);
     display: flex;
     justify-content: center;
     align-items: center;
