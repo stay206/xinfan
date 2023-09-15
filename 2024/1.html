@@ -33,26 +33,16 @@
         }
     </style>
     
-    <script type="text/javascript">
-        function openShutManager(oSourceObj,oTargeObj,shutAble,oOpenTip,oShutTip){
-            var sourceObj=typeof oSourceObj=="string"?document.getElementById(oSourceObj):oSourceObj;
-            var targeObj=typeof oTargeObj=="string"?document.getElementById(oTargeObj):oTargeObj;
-            var openTip=oOpenTip||"";
-            var shutTip=oShutTip||"";
-            if(targeObj.style.display!="none"){
-                if(shutAble) return;
-                targeObj.style.display="none";
-                if(openTip&&shutTip){
-                    sourceObj.innerHTML=shutTip;
-                }
-            }else{
-                targeObj.style.display="block";
-                if(openTip&&shutTip){
-                    sourceObj.innerHTML=openTip;
-                }
-            }
+    <script>
+        function toggleContent() {
+        var content = document.getElementById("hidden-content");
+        if (content.style.display === "none") {
+        content.style.display = "block";
+        } else {
+        content.style.display = "none";
         }
-    </script>
+        }
+        </script>
 <head>
     <title>2024年冬季新番简表</title>
     <meta charset="utf-8" />
@@ -112,23 +102,23 @@
         onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
     </iframe>
 
-    <h1><button onclick="openShutManager(this,'show1',false,'内容')">内容</button></h1>
-<div id="show1">
-    <span><section>
-        <div class="ac_coupon-content">
-            <div class="card">
-                <div class="photo">
-                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/37/af/426239_1D3s9.jpg">
-                </div>
-                <h1>青春笨蛋少年不做小学美少女的梦</h1>
-                <h2>青春ブタ野郎はランドセルガールの夢を見ない</h2>
-                <p>2023年12月1日</p>
-                <a href="https://bgm.tv/subject/426239" target="_blank">了解更多</a>
-
+    <button onclick="toggleContent()">Show/Hide Content</button>
+ <div id="hidden-content">
+ <p><section>
+    <div class="ac_coupon-content">
+        <div class="card">
+            <div class="photo">
+                <img src="https://lain.bgm.tv/r/400/pic/cover/l/37/af/426239_1D3s9.jpg">
             </div>
+            <h1>青春笨蛋少年不做小学美少女的梦</h1>
+            <h2>青春ブタ野郎はランドセルガールの夢を見ない</h2>
+            <p>2023年12月1日</p>
+            <a href="https://bgm.tv/subject/426239" target="_blank">了解更多</a>
+
         </div>
-    </section></span>
-</div>
+    </div>
+</section></p>
+ </div>
 
     <!-- 12月 8部-->
     
