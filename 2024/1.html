@@ -32,7 +32,27 @@
             color: white;
         }
     </style>
-
+    
+    <script type="text/javascript">
+        function openShutManager(oSourceObj,oTargeObj,shutAble,oOpenTip,oShutTip){
+            var sourceObj=typeof oSourceObj=="string"?document.getElementById(oSourceObj):oSourceObj;
+            var targeObj=typeof oTargeObj=="string"?document.getElementById(oTargeObj):oTargeObj;
+            var openTip=oOpenTip||"";
+            var shutTip=oShutTip||"";
+            if(targeObj.style.display!="none"){
+                if(shutAble) return;
+                targeObj.style.display="none";
+                if(openTip&&shutTip){
+                    sourceObj.innerHTML=shutTip;
+                }
+            }else{
+                targeObj.style.display="block";
+                if(openTip&&shutTip){
+                    sourceObj.innerHTML=openTip;
+                }
+            }
+        }
+    </script>
 <head>
     <title>2024年冬季新番简表</title>
     <meta charset="utf-8" />
@@ -92,8 +112,9 @@
         onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
     </iframe>
 
-    <!-- 12月 8部-->
-    <section>
+    <h1><button onclick="openShutManager(this,'show1',false,'内容')">内容</button></h1>
+<div id="show1">
+    <span><section>
         <div class="ac_coupon-content">
             <div class="card">
                 <div class="photo">
@@ -106,7 +127,11 @@
 
             </div>
         </div>
-    </section>
+    </section></span>
+</div>
+
+    <!-- 12月 8部-->
+    
 
     <section>
         <div class="ac_coupon-content">
