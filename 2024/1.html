@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <style>
-        iframe {
-            border: none;
-        }
-    
-        .label {
-            border: 1px solid #000;
-        }
-    
-        .label-danger {
-            background-color: #d9534f;
-            border-radius: 5px;
-            padding: 3px 5px 3px;
-        }
-    
-        .button1 {
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-            padding: 16px 32px;
-            background-color: white;
-            line-height: 1;
-            text-align: center;
-            color: black;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-        }
-    
-        .button1:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-    </style>
-    
-    <script>
-        function toggleContent() {
-        var content = document.getElementById("hidden-content");
-        if (content.style.display === "none") {
-        content.style.display = "block";
-        } else {
-        content.style.display = "none";
-        }
-        }
-        </script>
+<style>
+    iframe {
+        border: none;
+    }
+
+    .label {
+        border: 1px solid #000;
+    }
+
+    .label-danger {
+        background-color: #d9534f;
+        border-radius: 5px;
+        padding: 3px 5px 3px;
+    }
+
+    .button1 {
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        padding: 16px 32px;
+        background-color: white;
+        line-height: 1;
+        text-align: center;
+        color: black;
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+    }
+
+    .button1:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+
+<script>
+    <script type="text/javascript">
+
+        function display(id){  
+     var traget=document.getElementById(id);
+        if(traget.style.display=="none"){
+            traget.style.display = "";  
+     }else{
+            traget.style.display = "none";  
+   }  
+}  
+</script>
+</script>
+
 <head>
     <title>2024年冬季新番简表</title>
     <meta charset="utf-8" />
@@ -70,19 +74,19 @@
     ">
                 <li>最后更新：<span id="lastUpdated"></span>.</li>
                 <script>
-                    //最后更新网页时间
-                    const lastUpdatedElement = document.getElementById('lastUpdated');
-                    const lastUpdatedDate = new Date(document.lastModified);
-                    const options = {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        second: 'numeric'
+        //最后更新网页时间
+        const lastUpdatedElement = document.getElementById('lastUpdated');
+        const lastUpdatedDate = new Date(document.lastModified);
+        const options = {
+            year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
                     };
-                    const formattedDate = lastUpdatedDate.toLocaleDateString('zh-CN', options);
-                    lastUpdatedElement.innerHTML = formattedDate
+        const formattedDate = lastUpdatedDate.toLocaleDateString('zh-CN', options);
+        lastUpdatedElement.innerHTML = formattedDate
                 </script></em>
                 慢速更新，如果您有我没有列出新番信息，请加入QQ频道联系我吧！<br>
             </div>
@@ -102,26 +106,26 @@
         onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
     </iframe>
 
-    <button onclick="toggleContent()">Show/Hide Content</button>
- <div id="hidden-content">
- <p><section>
-    <div class="ac_coupon-content">
-        <div class="card">
-            <div class="photo">
-                <img src="https://lain.bgm.tv/r/400/pic/cover/l/37/af/426239_1D3s9.jpg">
+
+    <p id="p2" style="display:none;">
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/37/af/426239_1D3s9.jpg">
+                </div>
+                <h1>青春笨蛋少年不做小学美少女的梦</h1>
+                <h2>青春ブタ野郎はランドセルガールの夢を見ない</h2>
+                <p>2023年12月1日</p>
+                <a href="https://bgm.tv/subject/426239" target="_blank">了解更多</a>
+
             </div>
-            <h1>青春笨蛋少年不做小学美少女的梦</h1>
-            <h2>青春ブタ野郎はランドセルガールの夢を見ない</h2>
-            <p>2023年12月1日</p>
-            <a href="https://bgm.tv/subject/426239" target="_blank">了解更多</a>
-
         </div>
-    </div>
-</section></p>
- </div>
-
+    </section>
+    </p>
+    <input type="button" onclick="showAndHidden1();" value="p切换" />
     <!-- 12月 8部-->
-    
+
 
     <section>
         <div class="ac_coupon-content">
@@ -696,8 +700,8 @@
     </section>
 
     <iframe scrolling=“no” framebordering='0' src="https://stay206.github.io/xinfan/2024/1footer.html" width="100%"
-    onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
-</iframe>
+        onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
+    </iframe>
 
 </body>
 
