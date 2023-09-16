@@ -35,8 +35,8 @@
 
 <script type="text/javascript">
 
-    function display(id) {
-        var traget = document.getElementById(id);
+    function display(class) {
+        var traget = document.getElementById(class);
         if (traget.style.display == "none") {
             traget.style.display = "";
         } else {
@@ -119,7 +119,7 @@
 -->
 
     <!-- 右下角显示NSFW -->
-
+    
     <div onclick="display('lb')">
         <img src="https://stay206.github.io/6e60b6cd01c82516.jpg"
             style="width: 5rem;height: 5rem;position: fixed;bottom: 5rem;right: 1rem;z-index: 9999;" />
@@ -137,7 +137,7 @@
 
 
     <!-- 9月 21部 -->
-    <div id="lb" style="display:none">
+    <div class="lb" style="display:none">
         <font>
             <section>
                 <div class="ac_coupon-content">
@@ -155,7 +155,7 @@
         </font>
     </div>
 
-    <div id="lb" style="display:none">
+    <div class="lb" style="display:none">
         <font>
             <section>
                 <div class="ac_coupon-content">
@@ -1647,20 +1647,22 @@
             </div>
         </div>
     </section>
-    <section>
+    <div id="lb" style="display:none">
+        <font><section>
         <div class="ac_coupon-content">
             <div class="card">
                 <div class="photo">
                     <img src="https://www.mediabank.co.jp/media/files/jacket/QNB-M122/QNB-M122_k.jpg">
                 </div>
-                <h1>Sweet and Hot</h1>
+                <h1><span class="label label-danger">NSFW</span>Sweet and Hot</h1>
                 <h2></h2>
                 <p>1话 / 2023年11月10日</p>
                 <a href="https://www.mediabank.co.jp/product.php?model=QNB-M122" target="_blank">了解更多</a>
 
             </div>
         </div>
-    </section>
+    </section></font>
+    </div>
 
     <section>
         <div class="ac_coupon-content">

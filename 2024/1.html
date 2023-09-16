@@ -36,8 +36,8 @@
 
 <script type="text/javascript">
  
-    function display(id){  
-        var traget=document.getElementById(id);  
+    function funcTest(class){  
+        var traget=document.getElementById(class);  
         if(traget.style.display=="none"){  
             traget.style.display="";  
         }else{  
@@ -108,7 +108,7 @@
 
     
     
-    <div onclick="display('lb')">
+    <div onclick="funcTest('lb')">
         <img src="https://stay206.github.io/6e60b6cd01c82516.jpg" style="width: 5rem;height: 5rem;position: fixed;bottom: 5rem;right: 1rem;z-index: 9999;" />
         
 </div>
@@ -128,7 +128,8 @@
         </div>
     </section>
 
-    <section>
+    <div class="lb" style="display:none">
+        <font><section>
         <div class="ac_coupon-content">
             <div class="card">
                 <div class="photo">
@@ -141,9 +142,10 @@
 
             </div>
         </div>
-    </section>
+    </section></font>
+</div>
 
-<div id="lb" style="display:none">
+<div class="lb" style="display:none">
         <font><section>
         <div class="ac_coupon-content">
             <div class="card">
