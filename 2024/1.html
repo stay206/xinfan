@@ -36,8 +36,8 @@
 
 <script type="text/javascript">
  
-    function funcTest(class){  
-        var traget=document.getElementById(class);  
+    function funcTest(id){  
+        var traget=document.getElementById(id);  
         if(traget.style.display=="none"){  
             traget.style.display="";  
         }else{  
@@ -108,7 +108,7 @@
 
     
     
-    <div onclick="funcTest('lb')">
+    <div onclick="display('lb')">
         <img src="https://stay206.github.io/6e60b6cd01c82516.jpg" style="width: 5rem;height: 5rem;position: fixed;bottom: 5rem;right: 1rem;z-index: 9999;" />
         
 </div>
@@ -128,8 +128,7 @@
         </div>
     </section>
 
-    <div class="lb" style="display:none">
-        <font><section>
+    <section>
         <div class="ac_coupon-content">
             <div class="card">
                 <div class="photo">
@@ -142,17 +141,16 @@
 
             </div>
         </div>
-    </section></font>
-</div>
+    </section>
 
-<div class="lb" style="display:none">
+<div id="lb" style="display:none">
         <font><section>
         <div class="ac_coupon-content">
             <div class="card">
                 <div class="photo">
                     <img src="https://www.mediabank.co.jp/media/files/jacket/QNB-M124/now_printing.jpg">
                 </div>
-                <h1>NO 猥婦 NO LIFE！</h1>
+                <h1><span class="label label-danger">NSFW</span>NO 猥婦 NO LIFE！</h1>
                 <h2></h2>
                 <p>1话 / 2023年12月8日</p>
                 <a href="https://www.mediabank.co.jp/product.php?model=QNB-M124" target="_blank">了解更多</a>

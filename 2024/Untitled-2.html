@@ -1,53 +1,28 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <style>
-        .div {
-            display:none;
-            border:3px solid red;
-        }
-    </style>
+    <script type="text/javascript">
+ 
+        function display(id){  
+            var traget=document.getElementById(id);  
+            if(traget.style.display=="none"){  
+                traget.style.display="";  
+            }else{  
+                traget.style.display="none";  
+          }  
+       }  
+    </script>
 </head>
+
 <body>
-<!--    实现点击按钮显示一个div,页面上其他的内容全部隐藏。再点击返回按钮，div隐藏，页面上所有的内容再显示出来。-->
-   
-    <p style="border:2px dashed green;" >
-        <input type="button" name="showandhide" value="按钮" id="button" /><br /><br />
-    </p>
-
-    <article>      <!---article是HTML5的一个元素标签-->
-        <strong>我是其他的内容1</strong>
-
-        <hr />
-        <div class="div">
-            这里就是div的内容
-        </div>
-        <hr />
-
-        <span>我是其他的内容2</span>
-    </article>
+    <input type="submit" value="在线支付" onclick="display('lb')">
+    <div class="lb" style="display:none">
+        <font>6666666666</font>
+    </div>
 </body>
+
 </html>
-<script src="TravelCompany/js/jquery-1.8.3.js"></script>
-<script>
-    $(function () {
-        $("#button").toggle(function () {    //toggle是鼠标多次点击事件的方法
-            $(".div").show();                            //单击一次按钮
-            $("article *:not('.div')").hide();           //显示div里面的内容，隐藏不是div的元素
-
-            //简单的方法就是把所有不是div的元素一个一个的写出来
-            //$("span").hide();
-            //$("strong").hide();
-        }, function () {                    //再次单击按钮时
-            $(".div").hide();               //隐藏div里面的内容，显示不是div的元素
-            $("article *:not('.div')").show();
-
-            //$("span").show();
-            //$("strong").show();
-        });
-
-    });
-</script>
