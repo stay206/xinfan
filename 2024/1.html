@@ -33,18 +33,17 @@
     }
 </style>
 
-<script>
-    <script type="text/javascript">
 
-        function display(id){  
-     var traget=document.getElementById(id);
-        if(traget.style.display=="none"){
-            traget.style.display = "";  
-     }else{
-            traget.style.display = "none";  
+<script type="text/javascript">
+ 
+    function display(id){  
+        var traget=document.getElementById(id);  
+        if(traget.style.display=="none"){  
+            traget.style.display="";  
+        }else{  
+            traget.style.display="none";  
+      }  
    }  
-}  
-</script>
 </script>
 
 <head>
@@ -107,7 +106,13 @@
     </iframe>
 
 
-    <p id="p2" style="display:none;">
+    
+    
+    <div onclick="display('lb')">
+        <img src="https://stay206.github.io/6e60b6cd01c82516.jpg" style="width: 5rem;height: 5rem;position: fixed;bottom: 5rem;right: 1rem;z-index: 9999;" />
+        
+</div>
+    <!-- 12月 8部-->
     <section>
         <div class="ac_coupon-content">
             <div class="card">
@@ -122,10 +127,6 @@
             </div>
         </div>
     </section>
-    </p>
-    <input type="button" onclick="showAndHidden1();" value="p切换" />
-    <!-- 12月 8部-->
-
 
     <section>
         <div class="ac_coupon-content">
@@ -142,7 +143,8 @@
         </div>
     </section>
 
-    <section>
+<div id="lb" style="display:none">
+        <font><section>
         <div class="ac_coupon-content">
             <div class="card">
                 <div class="photo">
@@ -155,7 +157,8 @@
 
             </div>
         </div>
-    </section>
+    </section></font>
+    </div>
 
     <section>
         <div class="ac_coupon-content">
