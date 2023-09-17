@@ -34,62 +34,61 @@
 
 
     .t-right-bar {
-    position: fixed;
-    right: 0;
-    bottom: 10%;
-    width: 48px;
-    height: 48px;
-    z-index: 1000;
-    cursor: pointer;
-}
+        position: fixed;
+        right: 0;
+        bottom: 10%;
+        width: 48px;
+        height: 48px;
+        z-index: 1000;
+        cursor: pointer;
+    }
 
-.t-right-bar > div {
-    float: left;
-    height: 36px;
-    margin-bottom: 1px;
-    border-radius: 20px 0 0 20px;
-    color: #fff;
-    padding-left: 100%;
-    clear: both;
-    white-space: nowrap;
-    font-size: 13px;
-    line-height: 36px;
-    font-style: normal;
-    background-color: #aaa;
-    background-repeat: no-repeat;
-    background-position: 12px center;
-    transition: transform .2s cubic-bezier(.215, .61, .355, 1), padding .2s cubic-bezier(.215, .61, .355, 1), margin .2s cubic-bezier(.215, .61, .355, 1), background-color .2s cubic-bezier(.215, .61, .355, 1)
-}
+    .t-right-bar>div {
+        float: left;
+        height: 36px;
+        margin-bottom: 1px;
+        border-radius: 20px 0 0 20px;
+        color: #fff;
+        padding-left: 100%;
+        clear: both;
+        white-space: nowrap;
+        font-size: 13px;
+        line-height: 36px;
+        font-style: normal;
+        background-color: #aaa;
+        background-repeat: no-repeat;
+        background-position: 12px center;
+        transition: transform .2s cubic-bezier(.215, .61, .355, 1), padding .2s cubic-bezier(.215, .61, .355, 1), margin .2s cubic-bezier(.215, .61, .355, 1), background-color .2s cubic-bezier(.215, .61, .355, 1)
+    }
 
- .t-right-bar > div.active, .t-right-bar > div:hover {
-    transform: translateX(-100%);
-    padding-left: 45px;
-    padding-right: 10px;
-    margin-left: 48px;
-    background-color: #23a0e1;
-    text-decoration: none;
-    color: #fff
-}
+    .t-right-bar>div.active,
+    .t-right-bar>div:hover {
+        transform: translateX(-100%);
+        padding-left: 45px;
+        padding-right: 10px;
+        margin-left: 48px;
+        background-color: #23a0e1;
+        text-decoration: none;
+        color: #fff
+    }
 
-.t-right-bar .t-bar-support {
-    background-image: url(../img/icon/support_1.svg);   //按钮图标
-    background-position: 14px center;
-}
+    .t-right-bar .t-bar-support {
+        background-image: url(../img/icon/support_1.svg); //按钮图标
+        background-position: 14px center;
+    }
 
-.t-right-bar .t-bar-rocket {
-    background-image: url(../img/icon/rocket_1.svg);  //按钮图标
-    background-position: 19px center;
-}
+    .t-right-bar .t-bar-rocket {
+        background-image: url(../img/icon/rocket_1.svg); //按钮图标
+        background-position: 19px center;
+    }
 
-.t-bar-support a{
-    color: white;
-}
+    .t-bar-support a {
+        color: white;
+    }
 
-.t-bar-support a:hover{
-    color: #fff
-}
-
-
+    .t-bar-support a:hover {
+        color: #fff
+    }
 </style>
 
 <script type="text/javascript">
@@ -101,25 +100,12 @@
         } else {
             traget.style.display = "none";
         }
-    }  
+    }
 
 
-    $(".t-right-bar").hide();
-    $(function () {
-        $(window).scroll(function () {
-            if ($(window).scrollTop() > 100) {
-                $(".t-right-bar").fadeIn(500);
-            }
-            else {
-                $(".t-right-bar").fadeOut(500);
-            }
-        });
-
-        $("#back-to-top").click(function () {
-            $('body,html').animate({scrollTop: 0}, 100);
-            return false;
-        });
-    });
+    function gotop(){
+    $('html,body').animate({scrollTop:'0px'},'fast')
+};
 
 </script>
 
@@ -179,10 +165,10 @@
     <!-- 弹窗代码结束 -->
 
 
-    <!-- 右下角显示NSFW -->
     
 
-    <!-- 右下角显示NSFW end -->
+
+   
 
     <iframe scrolling=“no” framebordering='0' src="https://stay206.github.io/xinfan/2023/header.html" width="100%"
         onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
@@ -191,13 +177,15 @@
         onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
     </iframe>
 
-
+<!-- 右下角 -->
     <div class="t-right-bar">
-        <div class="t-bar-support" data-open-online-form onclick="display('lb');display('lb2');display('lb3');display('lb4');display('lb5');display('lb6');display('lb7');display('lb8');display('lb9');display('lb10');display('lb11');display('lb12');display('lb13')">显示NSFW</div>
-        <div class="t-bar-rocket" id="back-to-top">返回顶部</div>
+        <div class="t-bar-support" data-open-online-form
+            onclick="display('lb');display('lb2');display('lb3');display('lb4');display('lb5');display('lb6');display('lb7');display('lb8');display('lb9');display('lb10');display('lb11');display('lb12');display('lb13')">
+            显示NSFW</div>
+        <div class="t-bar-rocket" id="back-to-top" onClick="gotop()">返回顶部</div>
     </div>
-    
-    
+<!-- 右下角 end -->
+
 
     <!-- 9月 21部 -->
     <div id="lb" style="display:none">
@@ -1711,20 +1699,22 @@
         </div>
     </section>
     <div id="lb9" style="display:none">
-        <font><section>
-        <div class="ac_coupon-content">
-            <div class="card">
-                <div class="photo">
-                    <img src="https://www.mediabank.co.jp/media/files/jacket/QNB-M122/QNB-M122_k.jpg">
-                </div>
-                <h1><span class="label label-danger">NSFW</span>Sweet and Hot</h1>
-                <h2></h2>
-                <p>1话 / 2023年11月10日</p>
-                <a href="https://www.mediabank.co.jp/product.php?model=QNB-M122" target="_blank">了解更多</a>
+        <font>
+            <section>
+                <div class="ac_coupon-content">
+                    <div class="card">
+                        <div class="photo">
+                            <img src="https://www.mediabank.co.jp/media/files/jacket/QNB-M122/QNB-M122_k.jpg">
+                        </div>
+                        <h1><span class="label label-danger">NSFW</span>Sweet and Hot</h1>
+                        <h2></h2>
+                        <p>1话 / 2023年11月10日</p>
+                        <a href="https://www.mediabank.co.jp/product.php?model=QNB-M122" target="_blank">了解更多</a>
 
-            </div>
-        </div>
-    </section></font>
+                    </div>
+                </div>
+            </section>
+        </font>
     </div>
 
     <section>
@@ -1877,7 +1867,7 @@
         </font>
     </div>
 
-    
+
     <div id="lb13" style="display:none">
         <font>
             <section>
