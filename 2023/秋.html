@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<style>
+    iframe {
+        border: none;
+    }
+
+    .label {
+        border: 1px solid #000;
+    }
+
+    .label-danger {
+        background-color: #d9534f;
+        border-radius: 5px;
+        padding: 3px 5px 3px;
+    }
+
+    .button1 {
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        padding: 16px 32px;
+        background-color: white;
+        line-height: 1;
+        text-align: center;
+        color: black;
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+    }
+
+    .button1:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+
+    .t-right-bar {
+        position: fixed;
+        right: 0;
+        bottom: 10%;
+        width: 48px;
+        height: 48px;
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+    .t-right-bar>div {
+        float: left;
+        height: 36px;
+        margin-bottom: 1px;
+        border-radius: 20px 0 0 20px;
+        color: #fff;
+        padding-left: 100%;
+        clear: both;
+        white-space: nowrap;
+        font-size: 13px;
+        line-height: 36px;
+        font-style: normal;
+        background-color: #aaa;
+        background-repeat: no-repeat;
+        background-position: 12px center;
+        transition: transform .2s cubic-bezier(.215, .61, .355, 1), padding .2s cubic-bezier(.215, .61, .355, 1), margin .2s cubic-bezier(.215, .61, .355, 1), background-color .2s cubic-bezier(.215, .61, .355, 1)
+    }
+
+    .t-right-bar>div.active,
+    .t-right-bar>div:hover {
+        transform: translateX(-100%);
+        padding-left: 45px;
+        padding-right: 10px;
+        margin-left: 48px;
+        background-color: #23a0e1;
+        text-decoration: none;
+        color: #fff
+    }
+
+    .t-right-bar .t-bar-support {
+        background-image: url(../images/18禁.svg); //按钮图标
+        background-position: 14px center;
+    }
+
+    .t-right-bar .t-bar-rocket {
+        background-image: url(../images/返回顶部.svg); //按钮图标
+        background-position: 19px center;
+    }
+
+    .t-bar-support a {
+        color: white;
+    }
+
+    .t-bar-support a:hover {
+        color: #fff
+    }
+</style>
+
+<script type="text/javascript">
+
+    function display(id) {
+        var traget = document.getElementById(id);
+        if (traget.style.display == "none") {
+            traget.style.display = "";
+        } else {
+            traget.style.display = "none";
+        }
+    }
+
+
+    function gotop(){
+    $('html,body').animate({scrollTop:'0px'},'fast')
+};
+
+</script>
+
+<head>
+    <title>2023年秋季新番简表</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="https://stay206.github.io/6e60b6cd01c82516.jpg" type="image/x-icon">
+
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+
+    <link rel="shortcut icon" href="https://stay206.github.io/6e60b6cd01c82516.jpg" type="image/x-icon">
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <link rel="stylesheet" href="../assets/css/xinfan.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <!-- 弹窗代码开始 -->
+    <div class="web_notice"
+        style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.3);z-index: 99999;">
+        <div
+            style="position: fixed;top: 50%;left: 50%;width: 550px;background: #FFF;transform: translate(-50%, -50%);border-radius: 40px;padding: 50px 40px;">
+            <h3 style="font-weight: bold;text-align: center;font-size: 30px;
+    ">
+                <p style="color:black;">网站通知</p>
+            </h3>
+            <div style="font-size: 16px;margin-top: 26px;line-height: 30px;color: #999;
+    ">
+                <li>最后更新：<span id="lastUpdated"></span>.</li>
+                <script>
+                    //最后更新网页时间
+                    const lastUpdatedElement = document.getElementById('lastUpdated');
+                    const lastUpdatedDate = new Date(document.lastModified);
+                    const options = {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
+                    };
+                    const formattedDate = lastUpdatedDate.toLocaleDateString('zh-CN', options);
+                    lastUpdatedElement.innerHTML = formattedDate
+                </script></em>
+                慢速更新，如果您有我没有列出新番信息，请加入QQ频道联系我吧！<br>
+            </div>
+            <div style="text-align:center">
+                <b onclick="javascript:document.querySelector('.web_notice').remove()">
+                    <button class="button1">我知道了</button></b>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗代码结束 -->
+
+
+    
+
+
+   
+
+    <iframe scrolling=“no” framebordering='0' src="https://stay206.github.io/xinfan/2023/秋header.html" width="100%"
+        onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
+    </iframe>
+    
+
+<!-- 右下角 -->
+    <div class="t-right-bar">
+        
+        <div class="t-bar-rocket" id="back-to-top" onClick="gotop()">返回顶部</div>
+    </div>
+<!-- 右下角 end -->
+
+
+    <!-- 9月 -->
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://stay206.github.io/portfolio-master/img/ava.jpg">
+                </div>
+                <h1>炼气十万年 第二季</h1>
+                <h2></h2>
+                <p>100话 / 2023年9月5日</p>
+                <a href="https://bgm.tv/subject/452338" target="_blank">了解更多</a>
+
+
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/f9/bb/453482_hBJ5j.jpg">
+                </div>
+                <h1>洪荒灵尊</h1>
+                <h2></h2>
+                <p>2023年9月10日</p>
+                <a href="https://bgm.tv/subject/453482" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/3e/ee/436681_JjQUF.jpg">
+                </div>
+                <h1>如果历史是一群喵 宋辽金夏篇</h1>
+                <h2></h2>
+                <p>12话 / 2023年9月10日</p>
+                <a href="https://bgm.tv/subject/436681" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/19/e4/390896_06dnO.jpg">
+                </div>
+                <h1>锦衣神匠</h1>
+                <h2></h2>
+                <p>13话 / 2023年9月11日</p>
+                <a href="https://bgm.tv/subject/390896" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://stay206.github.io/portfolio-master/img/ava.jpg">
+                </div>
+                <h1>迷你世界之守护</h1>
+                <h2></h2>
+                <p>26话 / 2023年9月16日</p>
+                <a href="https://bgm.tv/subject/444275" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/c0/23/395657_aBFxu.jpg">
+                </div>
+                <h1>逆天邪神</h1>
+                <h2></h2>
+                <p>2023年9月23日</p>
+                <a href="https://bgm.tv/subject/395657" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/a0/21/453060_uUC33.jpg">
+                </div>
+                <h1>仙武传 第二季</h1>
+                <h2></h2>
+                <p>2023年9月24日</p>
+                <a href="https://bgm.tv/subject/453060" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/4c/12/345802_9u5Y5.jpg">
+                </div>
+                <h1>仙逆</h1>
+                <h2></h2>
+                <p>2023年9月25日</p>
+                <a href="https://bgm.tv/subject/345802" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/e1/cb/345827_7HP7s.jpg">
+                </div>
+                <h1>修罗武神</h1>
+                <h2></h2>
+                <p>16话 / 2023年9月26日</p>
+                <a href="https://bgm.tv/subject/345827" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/9c/fc/452047_VCroR.jpg">
+                </div>
+                <h1>功夫王之萌虎上山</h1>
+                <h2></h2>
+                <p>1话 / 2023年9月29日</p>
+                <a href="https://bgm.tv/subject/452047" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/bb/45/448621_xaCqA.jpg">
+                </div>
+                <h1>独步万古</h1>
+                <h2></h2>
+                <p>2023年9月29日</p>
+                <a href="https://bgm.tv/subject/448621" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/fb/39/445264_fnkqV.jpg">
+                </div>
+                <h1>我是哪吒2之英雄归来</h1>
+                <h2></h2>
+                <p>1话 / 2023年9月29日</p>
+                <a href="https://bgm.tv/subject/445264" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/c2/08/345864_qbM3Q.jpg">
+                </div>
+                <h1>给我来个小狐狸</h1>
+                <h2></h2>
+                <p>2023年9月29日</p>
+                <a href="https://bgm.tv/subject/345864" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/7c/9b/345762_IsqoN.jpg">
+                </div>
+                <h1>恶魔法则</h1>
+                <h2></h2>
+                <p>2023年9月29日</p>
+                <a href="https://bgm.tv/subject/345762" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/6e/f9/368985_55357.jpg">
+                </div>
+                <h1>大王饶命 第二季</h1>
+                <h2></h2>
+                <p>12话 / 2023年9月30日</p>
+                <a href="https://bgm.tv/subject/368985" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/12/c6/424557_0hf82.jpg">
+                </div>
+                <h1>吞噬星空 宇宙篇</h1>
+                <h2></h2>
+                <p>2023年9月</p>
+                <a href="https://bgm.tv/subject/424557" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/0a/f7/315262_l2J1q.jpg">
+                </div>
+                <h1>有药2</h1>
+                <h2></h2>
+                <p>24话 / 2023年9月</p>
+                <a href="https://bgm.tv/subject/315262" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+<!-- 10月 -->
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/dc/eb/449355_RRUKb.jpg">
+                </div>
+                <h1>完美世界 第四季</h1>
+                <h2></h2>
+                <p>52话 / 2023年10月6日</p>
+                <a href="https://bgm.tv/subject/449355" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/2e/fd/446289_s1liA.jpg">
+                </div>
+                <h1>火凤重天</h1>
+                <h2></h2>
+                <p>1话 / 2023年10月11日</p>
+                <a href="https://bgm.tv/subject/446289" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/2d/83/289102_x5cBY.jpg">
+                </div>
+                <h1>天官赐福 第二季</h1>
+                <h2></h2>
+                <p>2023年10月18日</p>
+                <a href="https://bgm.tv/subject/289102" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+  <!-- 11月 -->
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/9b/65/406306_sJ8dE.jpg">
+                </div>
+                <h1>凡人修仙传 第二季年番</h1>
+                <h2></h2>
+                <p>52话 / 2023年11月</p>
+                <a href="https://bgm.tv/subject/406306" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/16/40/358667_NI8Sn.jpg">
+                </div>
+                <h1>捕星司·源起</h1>
+                <h2></h2>
+                <p>18话 / 2023年11月</p>
+                <a href="https://bgm.tv/subject/358667" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+  
+
+   
+
+    <iframe scrolling=“no” framebordering='0' src="https://stay206.github.io/xinfan/2023/秋footer.html" width="100%"
+        onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
+    </iframe>
+
+</body>
+
+</html>
