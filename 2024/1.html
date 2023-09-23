@@ -1,95 +1,95 @@
 <!DOCTYPE html>
 <html>
-    <style>
-        iframe {
-            border: none;
-        }
-    
-        .label {
-            border: 1px solid #000;
-        }
-    
-        .label-danger {
-            background-color: #d9534f;
-            border-radius: 5px;
-            padding: 3px 5px 3px;
-        }
-    
-        .button1 {
-            -webkit-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-            padding: 16px 32px;
-            background-color: white;
-            line-height: 1;
-            text-align: center;
-            color: black;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-        }
-    
-        .button1:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-    
-    
-        .t-right-bar {
-            position: fixed;
-            right: 0;
-            bottom: 10%;
-            width: 48px;
-            height: 48px;
-            z-index: 1000;
-            cursor: pointer;
-        }
-    
-        .t-right-bar>div {
-            float: left;
-            height: 36px;
-            margin-bottom: 1px;
-            border-radius: 20px 0 0 20px;
-            color: #fff;
-            padding-left: 100%;
-            clear: both;
-            white-space: nowrap;
-            font-size: 13px;
-            line-height: 36px;
-            font-style: normal;
-            background-color: #aaa;
-            background-repeat: no-repeat;
-            background-position: 12px center;
-            transition: transform .2s cubic-bezier(.215, .61, .355, 1), padding .2s cubic-bezier(.215, .61, .355, 1), margin .2s cubic-bezier(.215, .61, .355, 1), background-color .2s cubic-bezier(.215, .61, .355, 1)
-        }
-    
-        .t-right-bar>div.active,
-        .t-right-bar>div:hover {
-            transform: translateX(-100%);
-            padding-left: 45px;
-            padding-right: 10px;
-            margin-left: 48px;
-            background-color: #23a0e1;
-            text-decoration: none;
-            color: #fff
-        }
-    
-        .t-right-bar .t-bar-support {
-            background-image: url(../images/18禁.svg); //按钮图标
-            background-position: 14px center;
-        }
-    
-        .t-right-bar .t-bar-rocket {
-            background-image: url(../images/返回顶部.svg); //按钮图标
-            background-position: 19px center;
-        }
-    
-        .t-bar-support a {
-            color: white;
-        }
-    
-        .t-bar-support a:hover {
-            color: #fff
-        }
-    </style>
+<style>
+    iframe {
+        border: none;
+    }
+
+    .label {
+        border: 1px solid #000;
+    }
+
+    .label-danger {
+        background-color: #d9534f;
+        border-radius: 5px;
+        padding: 3px 5px 3px;
+    }
+
+    .button1 {
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        padding: 16px 32px;
+        background-color: white;
+        line-height: 1;
+        text-align: center;
+        color: black;
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+    }
+
+    .button1:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+
+    .t-right-bar {
+        position: fixed;
+        right: 0;
+        bottom: 10%;
+        width: 48px;
+        height: 48px;
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+    .t-right-bar>div {
+        float: left;
+        height: 36px;
+        margin-bottom: 1px;
+        border-radius: 20px 0 0 20px;
+        color: #fff;
+        padding-left: 100%;
+        clear: both;
+        white-space: nowrap;
+        font-size: 13px;
+        line-height: 36px;
+        font-style: normal;
+        background-color: #aaa;
+        background-repeat: no-repeat;
+        background-position: 12px center;
+        transition: transform .2s cubic-bezier(.215, .61, .355, 1), padding .2s cubic-bezier(.215, .61, .355, 1), margin .2s cubic-bezier(.215, .61, .355, 1), background-color .2s cubic-bezier(.215, .61, .355, 1)
+    }
+
+    .t-right-bar>div.active,
+    .t-right-bar>div:hover {
+        transform: translateX(-100%);
+        padding-left: 45px;
+        padding-right: 10px;
+        margin-left: 48px;
+        background-color: #23a0e1;
+        text-decoration: none;
+        color: #fff
+    }
+
+    .t-right-bar .t-bar-support {
+        background-image: url(../images/18禁.svg); //按钮图标
+        background-position: 14px center;
+    }
+
+    .t-right-bar .t-bar-rocket {
+        background-image: url(../images/返回顶部.svg); //按钮图标
+        background-position: 19px center;
+    }
+
+    .t-bar-support a {
+        color: white;
+    }
+
+    .t-bar-support a:hover {
+        color: #fff
+    }
+</style>
 
 
 <script type="text/javascript">
@@ -104,9 +104,9 @@
     }
 
 
-    function gotop(){
-    $('html,body').animate({scrollTop:'0px'},'fast')
-};
+    function gotop() {
+        $('html,body').animate({ scrollTop: '0px' }, 'fast')
+    };
 
 </script>
 
@@ -121,6 +121,8 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <link rel="stylesheet" href="../assets/css/xinfan.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -137,19 +139,19 @@
     ">
                 <li>最后更新：<span id="lastUpdated"></span>.</li>
                 <script>
-        //最后更新网页时间
-        const lastUpdatedElement = document.getElementById('lastUpdated');
-        const lastUpdatedDate = new Date(document.lastModified);
-        const options = {
-            year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
+                    //最后更新网页时间
+                    const lastUpdatedElement = document.getElementById('lastUpdated');
+                    const lastUpdatedDate = new Date(document.lastModified);
+                    const options = {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
                     };
-        const formattedDate = lastUpdatedDate.toLocaleDateString('zh-CN', options);
-        lastUpdatedElement.innerHTML = formattedDate
+                    const formattedDate = lastUpdatedDate.toLocaleDateString('zh-CN', options);
+                    lastUpdatedElement.innerHTML = formattedDate
                 </script></em>
                 慢速更新，如果您有我没有列出新番信息，请加入QQ频道联系我吧！<br>
             </div>
@@ -169,15 +171,15 @@
         onload="this.height=this.contentWindow.document.documentElement.scrollHeight">
     </iframe>
 
-<!-- 右下角 -->
-<div class="t-right-bar">
-    <div class="t-bar-support" data-open-online-form
-        onclick="display('lb');display('lb2');display('lb3');display('lb4');display('lb5');display('lb6');display('lb7');display('lb8');display('lb9');display('lb10');display('lb11');display('lb12');display('lb13')">
-        显示NSFW</div>
-    <div class="t-bar-rocket" id="back-to-top" onClick="gotop()">返回顶部</div>
-</div>
-<!-- 右下角 end -->
-    
+     <!-- 右下角 -->
+     <div class="t-right-bar">
+        <div class="t-bar-support" data-open-online-form
+            onclick="display('lb');display('lb2');display('lb3');display('lb4');display('lb5');display('lb6');display('lb7');display('lb8');display('lb9');display('lb10');display('lb11');display('lb12');display('lb13')">
+            显示NSFW</div>
+        <div class="t-bar-rocket" id="back-to-top" onClick="gotop()">返回顶部</div>
+    </div>
+    <!-- 右下角 end -->
+
     <!-- 12月 8部-->
     <section>
         <div class="ac_coupon-content">
@@ -209,21 +211,24 @@
         </div>
     </section>
 
-<div id="lb" style="display:none">
-        <font><section>
-        <div class="ac_coupon-content">
-            <div class="card">
-                <div class="photo">
-                    <img src="https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=216001064912.jpg">
-                </div>
-                <h1><span class="label label-danger">NSFW</span>NO 猥婦 NO LIFE！</h1>
-                <h2></h2>
-                <p>1话 / 2023年12月8日</p>
-                <a href="https://www.mediabank.co.jp/product.php?model=QNB-M124" target="_blank">了解更多</a>
+    <div id="lb" style="display:none">
+        <font>
+            <section>
+                <div class="ac_coupon-content">
+                    <div class="card">
+                        <div class="photo">
+                            <img
+                                src="https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=216001064912.jpg">
+                        </div>
+                        <h1><span class="label label-danger">NSFW</span>NO 猥婦 NO LIFE！</h1>
+                        <h2></h2>
+                        <p>1话 / 2023年12月8日</p>
+                        <a href="https://www.mediabank.co.jp/product.php?model=QNB-M124" target="_blank">了解更多</a>
 
-            </div>
-        </div>
-    </section></font>
+                    </div>
+                </div>
+            </section>
+        </font>
     </div>
 
     <section>
