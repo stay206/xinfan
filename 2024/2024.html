@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        iframe {
+            border: none;
+        }
+    
+        .label {
+            border: 1px solid #000;
+        }
+    
+        .label-danger {
+            background-color: #d9534f;
+            border-radius: 5px;
+            padding: 3px 5px 3px;
+        }
+    
+        .button1 {
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            padding: 16px 32px;
+            background-color: white;
+            line-height: 1;
+            text-align: center;
+            color: black;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+        }
+    
+        .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+    
+    
+        .t-right-bar {
+            position: fixed;
+            right: 0;
+            bottom: 10%;
+            width: 48px;
+            height: 48px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+    
+        .t-right-bar>div {
+            float: left;
+            height: 36px;
+            margin-bottom: 1px;
+            border-radius: 20px 0 0 20px;
+            color: #fff;
+            padding-left: 100%;
+            clear: both;
+            white-space: nowrap;
+            font-size: 13px;
+            line-height: 36px;
+            font-style: normal;
+            background-color: #aaa;
+            background-repeat: no-repeat;
+            background-position: 12px center;
+            transition: transform .2s cubic-bezier(.215, .61, .355, 1), padding .2s cubic-bezier(.215, .61, .355, 1), margin .2s cubic-bezier(.215, .61, .355, 1), background-color .2s cubic-bezier(.215, .61, .355, 1)
+        }
+    
+        .t-right-bar>div.active,
+        .t-right-bar>div:hover {
+            transform: translateX(-100%);
+            padding-left: 45px;
+            padding-right: 10px;
+            margin-left: 48px;
+            background-color: #23a0e1;
+            text-decoration: none;
+            color: #fff
+        }
+    
+        .t-right-bar .t-bar-support {
+            background-image: url(../images/18禁.svg); //按钮图标
+            background-position: 14px center;
+        }
+    
+        .t-right-bar .t-bar-rocket {
+            background-image: url(../images/返回顶部.svg); //按钮图标
+            background-position: 19px center;
+        }
+    
+        .t-bar-support a {
+            color: white;
+        }
+    
+
+        .t-bar-support a:hover {
+            color: #fff
+        }
+    </style>
+    
+    <script type="text/javascript">
+    
+        function display(id) {
+            var traget = document.getElementById(id);
+            if (traget.style.display == "none") {
+                traget.style.display = "";
+            } else {
+                traget.style.display = "none";
+            }
+        }
+    
+    
+        function gotop() {
+            $('html,body').animate({ scrollTop: '0px' }, 'fast')
+        };
+    
+    </script>
+
+<head>
+    <title>2024年未定档新番简表</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="https://stay206.github.io/6e60b6cd01c82516.jpg" type="image/x-icon">
+
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+
+    <link rel="shortcut icon" href="https://stay206.github.io/6e60b6cd01c82516.jpg" type="image/x-icon">
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <link rel="stylesheet" href="../assets/css/xinfan.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- 弹窗代码开始 -->
+    <div class="web_notice"
+        style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.3);z-index: 99999;">
+        <div
+            style="position: fixed;top: 50%;left: 50%;width: 550px;background: #FFF;transform: translate(-50%, -50%);border-radius: 40px;padding: 50px 40px;">
+            <h3 style="font-weight: bold;text-align: center;font-size: 30px;
+">
+                <p style="color:black;">网站通知</p>
+            </h3>
+            <div style="font-size: 16px;margin-top: 26px;line-height: 30px;color: #999;
+"> 定档2024年而未定档季度新番
+                <li>最后更新：<span id="lastUpdated"></span>.</li>
+                <script>
+                    //最后更新网页时间
+                    const lastUpdatedElement = document.getElementById('lastUpdated');
+                    const lastUpdatedDate = new Date(document.lastModified);
+                    const options = {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
+                    };
+                    const formattedDate = lastUpdatedDate.toLocaleDateString('zh-CN', options);
+                    lastUpdatedElement.innerHTML = formattedDate
+                </script></em>
+                慢速更新，如果您有我没有列出新番信息，请加入QQ频道联系我吧！<br>
+            </div>
+            <div style="text-align:center">
+                <a onclick="javascript:document.querySelector('.web_notice').remove()">我知道了</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗代码结束 -->
+
+    <!-- 右下角 -->
+    <div class="t-right-bar">
+        <div class="t-bar-support" data-open-online-form
+            onclick="display('lb');display('lb2');display('lb3');display('lb4');display('lb5');display('lb6');display('lb7');display('lb8');display('lb9');display('lb10');display('lb11');display('lb12');display('lb13')">
+            显示NSFW</div>
+        <div class="t-bar-rocket" id="back-to-top" onClick="gotop()">返回顶部</div>
+    </div>
+    <!-- 右下角 end -->
+
+
+    <!-- 开始 -->
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://stay206.github.io/portfolio-master/img/ava.jpg">
+                </div>
+                <h1>定档2024年而未定档季度新番</h1>
+                <h2>制作者<a href="https://stay206.github.io/portfolio-master/portfolio.html">墨云</a></h2>
+                <p>收录定档24年而未定档季度日漫新番信息<br>数据来源banggumi番组计划<br>手机端点击图片可了解详细信息</p>
+                <a href="https://stay206.github.io/xinfan/fan">更多资讯</a>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 未确定 -->
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/6b/ca/449567_srV3d.jpg">
+                </div>
+                <h1>成为名垂青史的恶役千金吧</h1>
+                <h2>歴史に残る悪女になるぞ</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/449567" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/b7/15/448879_d6LU6.jpg">
+                </div>
+                <h1>德里科的托儿所</h1>
+                <h2>デリコズ・ナーサリー</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/448879" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/42/88/448613_hzJUK.jpg">
+                </div>
+                <h1>古连泰沙U</h1>
+                <h2>グレンダイザーU</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/448613" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/b4/f9/446615_318nd.jpg">
+                </div>
+                <h1>为何我的世界被遗忘了？</h1>
+                <h2>なぜ僕の世界を誰も覚えていないのか?</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/446615" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/46/7b/446175_78ub8.jpg">
+                </div>
+                <h1>魔导具师妲莉亚永不妥协</h1>
+                <h2>魔導具師ダリヤはうつむかない</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/446175" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/00/ae/444046_35NRn.jpg">
+                </div>
+                <h1>异世界自杀小队</h1>
+                <h2>Suicide Squad ISEKAI</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/444046" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/75/82/443931_SMVii.jpg">
+                </div>
+                <h1>黄昏失焦</h1>
+                <h2>黄昏アウトフォーカス</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/443931" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/d1/1c/443428_5pPac.jpg">
+                </div>
+                <h1>【我推的孩子】 第二季</h1>
+                <h2>【推しの子】 第2期</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/443428" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/19/d2/442673_8bd2h.jpg">
+                </div>
+                <h1>女神的露天咖啡厅 第二季</h1>
+                <h2>女神のカフェテラス 第2期</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/442673" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/e8/2c/442128_nALK8.jpg">
+                </div>
+                <h1>未ル</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/442128" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/34/db/441940_5loo4.jpg">
+                </div>
+                <h1>剧场版 我与机器子</h1>
+                <h2>劇場版 僕とロボコ</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/441940" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/52/cb/440101_7m0S7.jpg">
+                </div>
+                <h1>成为候鸟的你</h1>
+                <h2>渡り鳥になる君</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/440101" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/48/d0/437532_7M44o.jpg">
+                </div>
+                <h1>常轨脱离Creative</h1>
+                <h2>ハミダシクリエイティブ</h2>
+                <p>12话 / 2024年</p>
+                <a href="https://bgm.tv/subject/437532" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/da/22/432597_T9f4F.jpg">
+                </div>
+                <h1>重生大小姐正在攻略龙帝殿下</h1>
+                <h2>やり直し令嬢は竜帝陛下を攻略中</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/432597" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/7b/b8/431370_38z2F.jpg">
+                </div>
+                <h1>缘结甘神家</h1>
+                <h2>甘神さんちの縁結び</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/431370" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <div id="lb" style="display:none">
+        <font>
+            <section>
+                <div class="ac_coupon-content">
+                    <div class="card">
+                        <div class="photo">
+                            <img
+                                src="https://lain.bgm.tv/r/400/pic/cover/l/3f/6d/427069_O7qv8.jpg">
+                        </div>
+                        <h1><span class="label label-danger">NSFW</span>妻を同窓会に行かせたら</h1>
+                        <h2></h2>
+                        <p>1话 / 2024年</p>
+                        <a href="" target="_blank">了解更多</a>
+
+                    </div>
+                </div>
+            </section>
+        </font>
+    </div>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/6a/45/427059_X5txX.jpg">
+                </div>
+                <h1>大叔新人冒险者被最强小队拼死锻炼后无敌了</h1>
+                <h2>新米オッサン冒険者、最強パーティに死ぬほど鍛えられて無敵になる。</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/427059" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/31/d7/425991_96H0Y.jpg">
+                </div>
+                <h1>魔王2099</h1>
+                <h2>魔王2099</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/425991" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/53/76/425988_KaLEa.jpg">
+                </div>
+                <h1>前辈是男孩子</h1>
+                <h2>先輩はおとこのこ</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/425988" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/f8/f4/456684_ed5VW.jpg">
+                </div>
+                <h1>キン肉マン 完璧超人始祖編</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/424853" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/32/14/424573_bhfJh.jpg">
+                </div>
+                <h1>少主溜得快</h1>
+                <h2>逃げ上手の若君</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/424573" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/60/00/424454_dxx22.jpg">
+                </div>
+                <h1>魔法使光之美少女！2（暂定）</h1>
+                <h2>魔法つかいプリキュア！2（仮）</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/424454" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/fb/28/416320_ZFVT7.jpg">
+                </div>
+                <h1>身为VTuber的我因为忘记关台而成了传说</h1>
+                <h2>VTuberなんだが配信切り忘れたら伝説になってた</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/416320" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/7b/a0/411974_AACC4.jpg">
+                </div>
+                <h1>声优广播的幕前幕后</h1>
+                <h2>声優ラジオのウラオモテ</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/411974" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/53/13/410346_G96M9.jpg">
+                </div>
+                <h1>2.5次元的诱惑</h1>
+                <h2>2.5次元の誘惑</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/410346" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/41/29/408896_zLKdl.jpg">
+                </div>
+                <h1>Acro Trip</h1>
+                <h2>アクロトリップ</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/408896" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/0d/8a/408195_OL8S9.jpg">
+                </div>
+                <h1>再见，地球</h1>
+                <h2>ばいばい、アース</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/408195" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/b8/b8/404753_hzXQq.jpg">
+                </div>
+                <h1>鬼人幻燈抄</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/404753" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/4f/12/404480_LLDnN.jpg">
+                </div>
+                <h1>Love Live! Superstar!! 第三季</h1>
+                <h2>ラブライブ！スーパースター!! 3期</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/404480" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/66/6d/397604_4x5qX.jpg">
+                </div>
+                <h1>亚托莉 -我挚爱的时光-</h1>
+                <h2>ATRI -My Dear Moments-</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/397604" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/2f/86/389466_T179T.jpg">
+                </div>
+                <h1>约会大作战 第五季</h1>
+                <h2>デート・ア・ライブ</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/389466" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/5f/84/389156_u0tiw.jpg">
+                </div>
+                <h1>关于地球的运动</h1>
+                <h2>チ。―地球の運動について―</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/389156" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/e0/67/387972_1Emt1.jpg">
+                </div>
+                <h1>Garden of Remembrance</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/387972" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/24/a5/386728_LTzte.jpg">
+                </div>
+                <h1>月出之战</h1>
+                <h2>Moonrise</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/386728" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/10/f0/355803_pRcPv.jpg">
+                </div>
+                <h1>精灵幻想记 第二季</h1>
+                <h2>精霊幻想記 第2期</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/355803" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/e5/fc/351349_20vyi.jpg">
+                </div>
+                <h1>这是你与我的最后战场，或是开创世界的圣战 第二季</h1>
+                <h2>キミと僕の最後の戦場、あるいは世界が始まる聖戦 Season II</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/351349" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/aa/15/460503_4qq63.jpg">
+                </div>
+                <h1>圣斗士星矢：黄道十二宫战士 战斗圣域 Part 2</h1>
+                <h2>聖闘士星矢：Knights of the Zodiac バトル・サンクチュアリ Part 2</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/460503" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/68/62/473832_1jAAC.jpg">
+                </div>
+                <h1>劇場版 BanG Dream! It's MyGO!!!!! 前編 春の陽だまり、迷い猫</h1>
+                <h2></h2>
+                <p>1话 / 2024年</p>
+                <a href="https://bangumi.tv/subject/473832" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/ed/d9/477204_54Rje.jpg">
+                </div>
+                <h1>多数欠</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/477204" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/77/ea/476683_1rVVO.jpg">
+                </div>
+                <h1>PUI PUI モルカー CGアニメーション映画</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/476683" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/ac/c5/476418_V4Grb.jpg">
+                </div>
+                <h1>依靠被嫌弃的【状态异常技能】而成为最强的我最终蹂躏一切</h1>
+                <h2>ハズレ枠の【状態異常スキル】で最強になった俺がすべてを蹂躙するまで</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/476418" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/d2/66/476129_ZjoQJ.jpg">
+                </div>
+                <h1>一个人的异世界攻略</h1>
+                <h2>ひとりぼっちの異世界攻略</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/476129" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/0b/e5/475933_KrGyV.jpg">
+                </div>
+                <h1>魔王军最强的魔术师是人类</h1>
+                <h2>魔王軍最強の魔術師は人間だった</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/475933" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="../images/无.png">
+                </div>
+                <h1>Fate/Samurai Remnant Fate 特别动画</h1>
+                <h2>Fate/Samurai Remnant Fate Animated Short</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/475745" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/e8/b0/475367_Cis14.jpg">
+                </div>
+                <h1>精灵小姐瘦不了。</h1>
+                <h2>エルフさんは痩せられない。</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/475367" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/96/44/474801_d8zk5.jpg">
+                </div>
+                <h1>冻牌～地下麻将斗牌录～</h1>
+                <h2>凍牌～裏レート麻雀闘牌録～</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/474801" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/68/62/473832_1jAAC.jpg">
+                </div>
+                <h1>劇場版 BanG Dream! It's MyGO!!!!! 後編 うたう、僕らになれるうた & FILM LIVE</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/473833" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/44/56/472673_9hC9x.jpg">
+                </div>
+                <h1>被队伍驱逐的治愈师，其实是最强的</h1>
+                <h2> パーティーから追放されたその治癒師、実は最強につき</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/472673" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/65/1c/472554_cowNw.jpg">
+                </div>
+                <h1>从路人角色开始的探索英雄谭</h1>
+                <h2>モブから始まる探索英雄譚</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/472554" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/a9/63/471839_oPYXO.jpg">
+                </div>
+                <h1>暗杀女仆冥土酱。</h1>
+                <h2>君は冥土様。</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/471839" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/b7/56/470738_07848.jpg">
+                </div>
+                <h1>极速车魂 第二季</h1>
+                <h2>MFゴースト 2nd Season</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/470738" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/7f/fb/470599_39zfq.jpg">
+                </div>
+                <h1>浪客剑心 －明治剑客浪漫谭－ 京都动乱</h1>
+                <h2>るろうに剣心 －明治剣客浪漫譚－ 京都動乱</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/470599" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/d2/d3/470294_Y14vx.jpg">
+                </div>
+                <h1>妖怪学校的新人教师！</h1>
+                <h2>妖怪学校の先生はじめました！</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/470294" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/6c/36/467811_pKs4g.jpg">
+                </div>
+                <h1>异世界悠闲纪行～边养娃边当冒险者～</h1>
+                <h2>異世界ゆるり紀行 ～子育てしながら冒険者します～</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/467811" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/86/f4/466165_M7999.jpg">
+                </div>
+                <h1>机动战士高达：银灰的幻影</h1>
+                <h2>機動戦士ガンダム: 銀灰の幻影</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/466165" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/6f/d8/464563_1T1Aa.jpg">
+                </div>
+                <h1>THE NEW GATE</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/464563" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/d5/89/464561_GEG0O.jpg">
+                </div>
+                <h1>菜なれ花なれ</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/464561" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/e4/dc/464376_x8jhW.jpg">
+                </div>
+                <h1>負けヒロインが多すぎる！</h1>
+                <h2></h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/464376" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/e0/73/457956_xtNKG.jpg">
+                </div>
+                <h1>时光巡逻队</h1>
+                <h2>T・Pぼん</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/457956" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/6d/1e/457326_n0U9V.jpg">
+                </div>
+                <h1>死神 千年血战篇-相克谭-</h1>
+                <h2>BLEACH 千年血戦篇-相剋譚-</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/457326" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/65/dd/455981_1IjFB.jpg">
+                </div>
+                <h1>魔王学院的不适任者～史上最强的魔王始祖，转生就读子孙们的学校～ 第二季 第2部分</h1>
+                <h2>魔王学院の不適合者 ～史上最強の魔王の始祖、転生して子孫たちの学校へ通う～ Ⅱ 2ndクール</h2>
+                <p>2024年</p>
+                <a href="https://bangumi.tv/subject/455981" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/93/bd/455677_Z1MN8.jpg">
+                </div>
+                <h1>拳愿阿修罗 Season 2 Part 2</h1>
+                <h2>ケンガンアシュラ Season2 Part 2</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/455677" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/89/e0/341139_c2SqS.jpg">
+                </div>
+                <h1>动物狂想曲 最终季</h1>
+                <h2>BEASTARS FINAL SEASON</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/341139" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/e7/f2/335390_Y22Yj.jpg">
+                </div>
+                <h1>剧场版 OVERLORD 圣王国篇</h1>
+                <h2>劇場版 オーバーロード 聖王国編</h2>
+                <p>1话 / 2024年</p>
+                <a href="https://bgm.tv/subject/335390" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/93/ed/235634_HqHr1.jpg">
+                </div>
+                <h1>机械手臂</h1>
+                <h2>メカウデ-MECHANICAL ARMS-</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/235634" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/4a/71/451426_XEWCj.jpg">
+                </div>
+                <h1>稗记舞咏</h1>
+                <h2>ハイガクラ</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/451426" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/b1/aa/407234_H812l.jpg">
+                </div>
+                <h1>战队大失格</h1>
+                <h2>戦隊大失格</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/407234" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <section>
+        <div class="ac_coupon-content">
+            <div class="card">
+                <div class="photo">
+                    <img src="https://lain.bgm.tv/r/400/pic/cover/l/ba/81/453140_23cV6.jpg">
+                </div>
+                <h1>好想告诉你 第三季</h1>
+                <h2>君に届け 3RD SEASON</h2>
+                <p>2024年</p>
+                <a href="https://bgm.tv/subject/453140" target="_blank">了解更多</a>
+
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
