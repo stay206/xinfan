@@ -14,6 +14,11 @@
         border-radius: 5px;
         padding: 3px 5px 3px;
     }
+    .label-sj {
+        background-color: #2990dff6;
+        border-radius: 5px;
+        padding: 3px 5px 3px;
+    }
 
     .button1 {
         -webkit-transition-duration: 0.4s;
