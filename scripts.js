@@ -1,3 +1,39 @@
+// 在页面加载时，读取每个帖子的时间文本并设置到data-date属性中
+document.addEventListener('DOMContentLoaded', function() {
+    let posts = document.querySelectorAll('.post');
+    
+    posts.forEach(post => {
+        // 获取标题和副标题文本并设置到data-title属性中
+        let titleElement = post.querySelector('.post-title h2');
+        let subtitleElement = post.querySelector('.post-title h3');
+        let title = titleElement ? titleElement.textContent.trim() : "";
+        let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+        let fullTitle = title + " " + subtitle;
+        post.setAttribute('data-title', fullTitle);
+        
+        // 获取标签文本并设置到data-tags属性中
+        let tagsElements = post.querySelectorAll('.tag');
+        let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
+        post.setAttribute('data-tags', tags);
+
+        // 获取时间文本并设置到data-date属性中
+        let dateElement = post.querySelector('.date-text');
+        if (dateElement) {
+            let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+            if (dateText) {
+                let year = dateText[1];
+                let month = dateText[2].padStart(2, '0'); // 保证月份是两位数
+                let day = dateText[3].padStart(2, '0'); // 保证日期是两位数
+                let formattedDate = `${year}-${month}-${day}`;
+                post.setAttribute('data-date', formattedDate);
+            }
+        }
+    });
+    
+    // 调用排序函数
+    sortPostsByDate();
+});
+
 // 搜索功能：根据输入框的值过滤帖子
 document.getElementById('search').addEventListener('input', function() {
     let filter = this.value.toLowerCase();
@@ -5,7 +41,8 @@ document.getElementById('search').addEventListener('input', function() {
 
     posts.forEach(post => {
         let title = post.getAttribute('data-title').toLowerCase();
-        if (title.includes(filter)) {
+        let tags = post.getAttribute('data-tags').toLowerCase();
+        if (title.includes(filter) || tags.includes(filter)) {
             post.style.display = '';
         } else {
             post.style.display = 'none';
