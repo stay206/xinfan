@@ -1,12 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 使用给出的 URL 读取 normal-posts.txt 和 r18-posts.txt 文件内容并插入到 <main id="posts-container"> 标签内
+    // 首先读取 r18 文件内容并写入 zc 文件
     Promise.all([
-        fetch('https://stay206.github.io/xinfan/2025/1/zc').then(response => response.text()),
-        fetch('https://stay206.github.io/xinfan/2025/1/r18').then(response => response.text())
+        fetch('https://stay206.github.io/xinfan/2025/1/r18').then(response => response.text()),
+        fetch('https://stay206.github.io/xinfan/2025/1/zc').then(response => response.text())
     ])
-    .then(([normalPosts, r18Posts]) => {
+    .then(([r18Posts, zcPosts]) => {
+        const combinedPosts = zcPosts + r18Posts;
+
+        // 创建一个 Blob 对象，将合并后的内容写入新的 zc 文件
+        const blob = new Blob([combinedPosts], { type: 'https://stay206.github.io/xinfan/2025/1/xzc' });
+
+        // 创建一个 URL 对象指向 Blob
+        const url = URL.createObjectURL(blob);
+
+        // 使用新的 URL 读取合并后的 zc 文件内容
+        return fetch(url).then(response => response.text());
+    })
+    .then(combinedPosts => {
         const postsContainer = document.getElementById('posts-container');
-        postsContainer.innerHTML = normalPosts + r18Posts;
+        postsContainer.innerHTML = combinedPosts;
 
         // 将内容插入后，继续执行排序和其他功能
         initializePosts();
@@ -17,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initializePosts() {
         let posts = document.querySelectorAll('.post');
-        
+
         posts.forEach(post => {
             let titleElement = post.querySelector('.post-title h2');
             let subtitleElement = post.querySelector('.post-title h3');
@@ -25,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
             let fullTitle = title + " " + subtitle;
             post.setAttribute('data-title', fullTitle);
-            
+
             let tagsElements = post.querySelectorAll('.tag');
             let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
             post.setAttribute('data-tags', tags);
@@ -42,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-        
+
         // 调用排序函数
         sortPostsByDate();
         // 调用分页函数
