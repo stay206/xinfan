@@ -1,18 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 使用给出的 URL 读取 zc 文件内容并插入到 <main id="posts-container"> 标签内
+    const postsContainer = document.getElementById('posts-container');
+
+    // 首先，读取并插入 zc 文件内容到 <main id="posts-container">
     fetch('https://stay206.github.io/xinfan/2025/1/zc')
         .then(response => response.text())
         .then(zcPosts => {
-            const postsContainer = document.getElementById('posts-container');
             postsContainer.innerHTML = zcPosts;
-
-            // 将内容插入后，继续执行排序和其他功能
             initializePosts();
+            updatePostImages();
         })
-        .catch(error => {
-            console.error('Error fetching the posts:', error);
-        });
+        .catch(error => console.error('Error fetching the posts:', error));
 
+    // 初始化帖子属性
     function initializePosts() {
         let posts = document.querySelectorAll('.post');
 
@@ -39,39 +38,43 @@ document.addEventListener('DOMContentLoaded', function() {
                     post.setAttribute('data-date', formattedDate);
                 }
             }
-
-            // 获取每个 <div class="post"> 的 data-link 属性值
-            const link = post.getAttribute('data-link');
-
-            // 使用 fetch 获取对应链接的内容
-            fetch(link)
-                .then(response => response.text())
-                .then(html => {
-                    // 创建一个临时的 DOM 解析器
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-
-                    // 查找 <div align="center"> 并获取其内部 <img> 标签的 src 属性值
-                    const centerDiv = doc.querySelector('div[align="center"]');
-                    const imgSrc = centerDiv ? centerDiv.querySelector('img').getAttribute('src') : '';
-
-                    // 将获取到的 src 属性值设置到 <div class="post"> 内的 <img> 标签
-                    if (imgSrc) {
-                        const postImg = post.querySelector('img');
-                        postImg.setAttribute('src', imgSrc);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching the content:', error);
-                });
         });
 
-        // 调用排序函数
         sortPostsByDate();
-        // 调用分页函数
         paginatePosts();
-        // 添加点击事件到每个帖子
         addPostClickEvents();
+    }
+
+    // 更新每个帖子的图片
+    function updatePostImages() {
+        let posts = document.querySelectorAll('.post');
+
+        posts.forEach(post => {
+            let dataLink = post.getAttribute('data-link');
+
+            if (dataLink) {
+                // 动态创建完整的 URL
+                let completeLink = dataLink.startsWith('http') ? dataLink : `https:${dataLink}`;
+
+                fetch(completeLink)
+                    .then(response => response.text())
+                    .then(html => {
+                        let parser = new DOMParser();
+                        let doc = parser.parseFromString(html, 'text/html');
+                        let imgElement = doc.querySelector('div[align="center"] a img.cover');
+                        if (imgElement) {
+                            let imgSrc = imgElement.getAttribute('src');
+                            // 动态创建完整的图片 URL
+                            let completeImgSrc = imgSrc.startsWith('http') ? imgSrc : `https:${imgSrc}`;
+                            let postImg = post.querySelector('img[alt="帖子图片"]');
+                            if (postImg) {
+                                postImg.setAttribute('src', completeImgSrc);
+                            }
+                        }
+                    })
+                    .catch(error => console.error(`Error fetching image from ${completeLink}:`, error));
+            }
+        });
     }
 
     // 搜索功能：根据输入框的值过滤帖子
@@ -174,13 +177,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let tBarSupport = document.querySelector('.t-bar-support');
 
         if (hiddenPosts.length > 0) {
-            // 显示隐藏的帖子
             hiddenPosts.forEach(post => {
                 post.classList.remove('hidden');
             });
             tBarSupport.textContent = '隐藏';
         } else {
-            // 隐藏原先隐藏的帖子
             let posts = document.querySelectorAll('.post');
             posts.forEach(post => {
                 if (post.getAttribute('data-hidden') === 'true') {
@@ -191,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 页面加载时调用排序和分页函数
     sortPostsByDate();
     paginatePosts();
 });
