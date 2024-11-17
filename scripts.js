@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 使用给出的 URL 读取 normal-posts 和 r18-posts 文件内容并插入到 <main id="posts-container"> 标签内
+    // 使用给出的 URL 读取 normal-posts.txt 和 r18-posts.txt 文件内容并插入到 <main id="posts-container"> 标签内
     Promise.all([
         fetch('https://stay206.github.io/xinfan/2025/1/zc').then(response => response.text()),
         fetch('https://stay206.github.io/xinfan/2025/1/r18').then(response => response.text())
@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let dateElement = post.querySelector('.date-text');
             if (dateElement) {
-                let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月?(\d{1,2})?/);
+                let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
                 if (dateText) {
                     let year = dateText[1];
                     let month = dateText[2].padStart(2, '0'); // 保证月份是两位数
-                    let day = dateText[3] ? dateText[3].padStart(2, '0') : '99'; // 如果没有日期，则设为 '99' 以便排序时置于底部
+                    let day = dateText[3].padStart(2, '0'); // 保证日期是两位数
                     let formattedDate = `${year}-${month}-${day}`;
                     post.setAttribute('data-date', formattedDate);
                 }
