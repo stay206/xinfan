@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let dateElement = post.querySelector('.date-text');
             if (dateElement) {
-                let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+                let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(\d{1,2})日?/);
                 if (dateText) {
                     let year = dateText[1];
                     let month = dateText[2].padStart(2, '0'); // 保证月份是两位数
-                    let day = dateText[3].padStart(2, '0'); // 保证日期是两位数
+                    let day = dateText[3] ? dateText[3].padStart(2, '0') : '99'; // 如果日期部分缺失，默认为99日
                     let formattedDate = `${year}-${month}-${day}`;
                     post.setAttribute('data-date', formattedDate);
                 }
