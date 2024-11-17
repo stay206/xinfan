@@ -39,6 +39,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     post.setAttribute('data-date', formattedDate);
                 }
             }
+
+            // 获取每个 <div class="post"> 的 data-link 属性值
+            const link = post.getAttribute('data-link');
+
+            // 使用 fetch 获取对应链接的内容
+            fetch(link)
+                .then(response => response.text())
+                .then(html => {
+                    // 创建一个临时的 DOM 解析器
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    // 查找 <div align="center"> 并获取其内部 <img> 标签的 src 属性值
+                    const centerDiv = doc.querySelector('div[align="center"]');
+                    const imgSrc = centerDiv ? centerDiv.querySelector('img').getAttribute('src') : '';
+
+                    // 将获取到的 src 属性值设置到 <div class="post"> 内的 <img> 标签
+                    if (imgSrc) {
+                        const postImg = post.querySelector('img');
+                        postImg.setAttribute('src', imgSrc);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching the content:', error);
+                });
         });
 
         // 调用排序函数
