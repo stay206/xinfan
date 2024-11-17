@@ -1,31 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 首先读取 r18 文件内容并写入 zc 文件
-    Promise.all([
-        fetch('https://stay206.github.io/xinfan/2025/1/r18').then(response => response.text()),
-        fetch('https://stay206.github.io/xinfan/2025/1/zc').then(response => response.text())
-    ])
-    .then(([r18Posts, zcPosts]) => {
-        const combinedPosts = zcPosts + r18Posts;
+    // 使用给出的 URL 读取 zc 文件内容并插入到 <main id="posts-container"> 标签内
+    fetch('https://stay206.github.io/xinfan/2025/1/zc')
+        .then(response => response.text())
+        .then(zcPosts => {
+            const postsContainer = document.getElementById('posts-container');
+            postsContainer.innerHTML = zcPosts;
 
-        // 创建一个 Blob 对象，将合并后的内容写入新的 zc 文件
-        const blob = new Blob([combinedPosts], { type: 'https://stay206.github.io/xinfan/2025/1/xzc' });
-
-        // 创建一个 URL 对象指向 Blob
-        const url = URL.createObjectURL(blob);
-
-        // 使用新的 URL 读取合并后的 zc 文件内容
-        return fetch(url).then(response => response.text());
-    })
-    .then(combinedPosts => {
-        const postsContainer = document.getElementById('posts-container');
-        postsContainer.innerHTML = combinedPosts;
-
-        // 将内容插入后，继续执行排序和其他功能
-        initializePosts();
-    })
-    .catch(error => {
-        console.error('Error fetching the posts:', error);
-    });
+            // 将内容插入后，继续执行排序和其他功能
+            initializePosts();
+        })
+        .catch(error => {
+            console.error('Error fetching the posts:', error);
+        });
 
     function initializePosts() {
         let posts = document.querySelectorAll('.post');
@@ -59,6 +45,17 @@ document.addEventListener('DOMContentLoaded', function() {
         sortPostsByDate();
         // 调用分页函数
         paginatePosts();
+        // 添加点击事件到每个帖子
+        addPostClickEvents();
+    }
+
+    function addPostClickEvents() {
+        document.querySelectorAll('.post').forEach(post => {
+            post.addEventListener('click', function() {
+                const link = post.getAttribute('data-link');
+                window.open(link, '_blank');
+            });
+        });
     }
 
     // 搜索功能：根据输入框的值过滤帖子
@@ -142,38 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 为每个帖子添加点击事件，跳转到不同的指定链接
-    document.querySelectorAll('.post').forEach(post => {
-        post.addEventListener('click', function() {
-            const link = post.getAttribute('data-link');
-            window.open(link, '_blank');
-        });
-    });
-
-    // 切换帖子显示和隐藏状态功能
-    document.querySelector('.t-bar-support').addEventListener('click', function() {
-        let hiddenPosts = document.querySelectorAll('.post.hidden');
-        let tBarSupport = document.querySelector('.t-bar-support');
-
-        if (hiddenPosts.length > 0) {
-            // 显示隐藏的帖子
-            hiddenPosts.forEach(post => {
-                post.classList.remove('hidden');
-            });
-            tBarSupport.textContent = '隐藏';
-        } else {
-            // 隐藏原先隐藏的帖子
-            let posts = document.querySelectorAll('.post');
-            posts.forEach(post => {
-                if (post.getAttribute('data-hidden') === 'true') {
-                    post.classList.add('hidden');
-                }
-            });
-            tBarSupport.textContent = '显示';
-        }
-    });
-
-    // 页面加载时调用排序和分页函数
-    sortPostsByDate();
-    paginatePosts();
+    // 确保 "回到顶部" 按钮的点击事件已注册
+    document.getElementById('back-to-top').addEventListener('click', gotop);
 });
