@@ -49,15 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
         addPostClickEvents();
     }
 
-    function addPostClickEvents() {
-        document.querySelectorAll('.post').forEach(post => {
-            post.addEventListener('click', function() {
-                const link = post.getAttribute('data-link');
-                window.open(link, '_blank');
-            });
-        });
-    }
-
     // 搜索功能：根据输入框的值过滤帖子
     document.getElementById('search').addEventListener('input', function() {
         let filter = this.value.toLowerCase();
@@ -141,4 +132,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 确保 "回到顶部" 按钮的点击事件已注册
     document.getElementById('back-to-top').addEventListener('click', gotop);
+
+    // 为每个帖子添加点击事件，跳转到不同的指定链接
+    document.querySelectorAll('.post').forEach(post => {
+        post.addEventListener('click', function() {
+            const link = post.getAttribute('data-link');
+            window.open(link, '_blank');
+        });
+    });
+
+    // 切换帖子显示和隐藏状态功能
+    document.querySelector('.t-bar-support').addEventListener('click', function() {
+        let hiddenPosts = document.querySelectorAll('.post.hidden');
+        let tBarSupport = document.querySelector('.t-bar-support');
+
+        if (hiddenPosts.length > 0) {
+            // 显示隐藏的帖子
+            hiddenPosts.forEach(post => {
+                post.classList.remove('hidden');
+            });
+            tBarSupport.textContent = '隐藏';
+        } else {
+            // 隐藏原先隐藏的帖子
+            let posts = document.querySelectorAll('.post');
+            posts.forEach(post => {
+                if (post.getAttribute('data-hidden') === 'true') {
+                    post.classList.add('hidden');
+                }
+            });
+            tBarSupport.textContent = '显示';
+        }
+    });
+
+    // 页面加载时调用排序和分页函数
+    sortPostsByDate();
+    paginatePosts();
 });
