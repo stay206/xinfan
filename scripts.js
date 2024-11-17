@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(zcPosts => {
         const postsContainer = document.getElementById('posts-container');
         postsContainer.innerHTML = zcPosts;
+        console.log("Posts loaded:", postsContainer.innerHTML); // 调试信息
         // 将内容插入后，继续执行排序和其他功能
         initializePosts();
       })
@@ -49,7 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
               let imgElement = doc.querySelector('div[align="center"] img');
               if (imgElement) {
                 let src = imgElement.getAttribute('src');
+                console.log(`Post link: ${link}, Image src: ${src}`); // 调试信息
                 post.querySelector('img').setAttribute('src', src);
+              } else {
+                console.warn(`No image found for link: ${link}`); // 调试信息
               }
             })
             .catch(error => {
