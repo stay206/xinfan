@@ -134,12 +134,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('back-to-top').addEventListener('click', gotop);
 
     // 为每个帖子添加点击事件，跳转到不同的指定链接
-    document.querySelectorAll('.post').forEach(post => {
-        post.addEventListener('click', function() {
-            const link = post.getAttribute('data-link');
-            window.open(link, '_blank');
+    function addPostClickEvents() {
+        document.querySelectorAll('.post').forEach(post => {
+            post.addEventListener('click', function() {
+                const link = post.getAttribute('data-link');
+                window.open(link, '_blank');
+            });
         });
-    });
+    }
 
     // 切换帖子显示和隐藏状态功能
     document.querySelector('.t-bar-support').addEventListener('click', function() {
