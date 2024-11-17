@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 使用给出的 URL 读取 normal-posts.txt 和 r18-posts.txt 文件内容并插入到 <main id="posts-container"> 标签内
     Promise.all([
-        fetch('https://stay206.github.io/xinfan/2025/1/normal-posts').then(response => response.text()),
-        fetch('https://stay206.github.io/xinfan/2025/1/r18-posts').then(response => response.text())
+        fetch('https://stay206.github.io/xinfan/2025/1/zc').then(response => response.text()),
+        fetch('https://stay206.github.io/xinfan/2025/1/r18').then(response => response.text())
     ])
     .then(([normalPosts, r18Posts]) => {
         const postsContainer = document.getElementById('posts-container');
