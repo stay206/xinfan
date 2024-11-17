@@ -1,5 +1,17 @@
-// 在页面加载时，读取每个帖子的时间文本并设置到data-date属性中
 document.addEventListener('DOMContentLoaded', function() {
+    // 读取 normal-posts.txt 文件内容并插入到 <main id="posts-container"> 标签内
+    fetch('../2025/normal-posts.txt') // 替换为 normal-posts.txt 的实际路径
+        .then(response => response.text())
+        .then(data => {
+            const postsContainer = document.getElementById('posts-container');
+            postsContainer.innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error fetching the posts:', error);
+        });
+
+    // 其余 JavaScript 功能代码保持不变
+    // 在页面加载时，读取每个帖子的时间文本并设置到data-date属性中
     let posts = document.querySelectorAll('.post');
     
     posts.forEach(post => {
@@ -123,8 +135,8 @@ document.querySelectorAll('.post').forEach(post => {
     });
 });
 
-// 切换帖子显示和隐藏状态
-function togglePosts() {
+// 切换帖子显示和隐藏状态功能
+document.querySelector('.t-bar-support').addEventListener('click', function() {
     let hiddenPosts = document.querySelectorAll('.post.hidden');
     let tBarSupport = document.querySelector('.t-bar-support');
 
@@ -138,13 +150,13 @@ function togglePosts() {
         // 隐藏原先隐藏的帖子
         let posts = document.querySelectorAll('.post');
         posts.forEach(post => {
-            if (post.getAttribute('data-link').startsWith('hidden')) {
+            if (post.getAttribute('data-hidden') === 'true') {
                 post.classList.add('hidden');
             }
         });
         tBarSupport.textContent = '显示';
     }
-}
+});
 
 // 页面加载时调用排序和分页函数
 sortPostsByDate();
