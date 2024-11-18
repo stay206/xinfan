@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
               }
               let img = post.querySelector('img');
               img.setAttribute('src', src); // 直接更新src属性
+              softRefresh(post); // 调用软刷新函数
             }
           }).catch(error => {
             console.error('Error fetching image:', error);
@@ -198,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         tBarSupport.textContent = '隐藏';
       } else {
+        // 隐藏原先隐藏的帖子
         let posts = document.querySelectorAll('.post');
         posts.forEach(post => {
           if (post.getAttribute('data-hidden') === 'true') {
@@ -211,5 +213,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // 页面加载时调用排序和分页函数
     sortPostsByDate();
     paginatePosts();
+  
+    // 软刷新函数：动态更新帖子部分而不刷新整个页面
+    function softRefresh(post) {
+      const newContent = post.innerHTML;
+      post.innerHTML = ''; // 清空内容
+      post.innerHTML = newContent; // 设置新内容
+      console.log('Post soft refreshed:', post);
+    }
   });
   
