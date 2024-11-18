@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(error => {
         console.error('Error fetching the posts:', error);
       });
-  
+
     // 初始化帖子数据
     function initializePosts() {
       let posts = document.querySelectorAll('.post');
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let dateElement = post.querySelector('.date-text');
         if (dateElement) {
-          let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(\d{1,2})日?/);
+          let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(?:(\d{1,2})日?)?/);
           if (dateText) {
             let year = dateText[1];
             let month = dateText[2].padStart(2, '0'); // 保证月份是两位数
@@ -42,12 +42,12 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }
       });
-  
+
       sortPostsByDate(); // 调用排序函数
       paginatePosts(); // 调用分页函数
       addPostClickEvents(); // 添加点击事件到每个帖子
     }
-  
+
     // 设置默认图片的函数
     function setDefaultImageIfEmpty() {
       let posts = document.querySelectorAll('.post img');
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     }
-  
+
     // 搜索功能：根据输入框的值过滤帖子
     document.getElementById('search').addEventListener('input', function() {
       let filter = this.value.toLowerCase();
@@ -72,19 +72,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
-  
+
     // 按日期排序帖子
     function sortPostsByDate() {
       let postsContainer = document.getElementById('posts-container');
       let posts = Array.from(postsContainer.getElementsByClassName('post'));
       posts.sort((a, b) => {
-        let dateA = new Date(a.getAttribute('data-date'));
-        let dateB = new Date(b.getAttribute('data-date'));
+        let dateA = new Date(a.getAttribute('data-date') + "-01");
+        let dateB = new Date(b.getAttribute('data-date') + "-01");
         return dateA - dateB;
       });
       posts.forEach(post => postsContainer.appendChild(post));
     }
-  
+
     // 分页功能：将帖子分页显示
     function paginatePosts() {
       const postsPerPage = 10;
@@ -92,12 +92,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const posts = Array.from(postsContainer.getElementsByClassName('post'));
       const pagination = document.getElementById('pagination');
       const totalPages = Math.ceil(posts.length / postsPerPage);
-  
+
       function showPage(page) {
         posts.forEach((post, index) => {
           post.style.display = (index >= (page - 1) * postsPerPage && index < page * postsPerPage) ? '' : 'none';
         });
-  
+
         pagination.innerHTML = '';
         for (let i = 1; i <= totalPages; i++) {
           const button = document.createElement('button');
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       showPage(1);
     }
-  
+
     // 禁用分页功能：切换分页功能的启用和禁用
     let paginationDisabled = false;
     document.getElementById('disable-pagination-btn').addEventListener('click', function() {
@@ -136,15 +136,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       paginationDisabled = !paginationDisabled;
     });
-  
+
     // 返回顶部功能：平滑滚动回到页面顶部
     function gotop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  
+
     // 确保 "回到顶部" 按钮的点击事件已注册
     document.getElementById('back-to-top').addEventListener('click', gotop);
-  
+
     // 为每个帖子添加点击事件，跳转到不同的指定链接
     function addPostClickEvents() {
       document.querySelectorAll('.post').forEach(post => {
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       });
     }
-  
+
     // 切换帖子显示和隐藏状态功能
     document.querySelector('.t-bar-support').addEventListener('click', function() {
       let hiddenPosts = document.querySelectorAll('.post.hidden');
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tBarSupport.textContent = '显示';
       }
     });
-  
+
     // 页面加载时调用排序和分页函数
     sortPostsByDate();
     paginatePosts();
