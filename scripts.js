@@ -109,6 +109,14 @@ document.addEventListener('DOMContentLoaded', function() {
           });
           pagination.appendChild(button);
         }
+        
+        // 显示或隐藏横幅部分
+        const banner = document.getElementById('banner');
+        if (page === 1) {
+          banner.style.display = 'block';
+        } else {
+          banner.style.display = 'none';
+        }
       }
       showPage(1);
     }
@@ -171,4 +179,3 @@ document.addEventListener('DOMContentLoaded', function() {
     sortPostsByDate();
     paginatePosts();
   });
-  
