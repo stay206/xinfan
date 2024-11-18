@@ -79,9 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
       let postsContainer = document.getElementById('posts-container');
       let posts = Array.from(postsContainer.getElementsByClassName('post'));
       posts.sort((a, b) => {
-        let dateA = new Date(a.getAttribute('data-sort-key'));
-        let dateB = new Date(b.getAttribute('data-sort-key'));
-        return dateA - dateB;
+        let dateA = a.getAttribute('data-sort-key');
+        let dateB = b.getAttribute('data-sort-key');
+        return dateA.localeCompare(dateB);
       });
       posts.forEach(post => postsContainer.appendChild(post));
     }
