@@ -361,6 +361,7 @@ footer .copyright a:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center; /* 确保内容水平居中 */
     cursor: default;
     height: 100vh;
     min-height: 35em;
@@ -388,12 +389,16 @@ footer .copyright a:hover {
 #banner .inner {
     position: relative;
     z-index: 1; /* 确保内容在黑色图层之上 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 确保内容水平居中 */
+    height: 100%; /* 确保内容垂直居中 */
 }
 
 #banner h2, #banner p, #banner a {
     color: white; /* 确保所有文字颜色为白色 */
 }
-
 
 #banner h2 {
     -moz-transform: scale(1);
