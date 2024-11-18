@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
             let day = dateText[3] ? dateText[3].padStart(2, '0') : '99'; // 如果日期部分缺失，默认为99日
             let formattedDate = `${year}-${month}-${day}`;
             post.setAttribute('data-date', formattedDate);
-            post.setAttribute('data-sort-key', `${year}-${month}-${day === '99' ? '9999' : day}`); // 用于排序的键
           }
         }
       });
@@ -79,9 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
       let postsContainer = document.getElementById('posts-container');
       let posts = Array.from(postsContainer.getElementsByClassName('post'));
       posts.sort((a, b) => {
-        let dateA = a.getAttribute('data-sort-key');
-        let dateB = b.getAttribute('data-sort-key');
-        return dateA.localeCompare(dateB);
+        let dateA = new Date(a.getAttribute('data-date'));
+        let dateB = new Date(b.getAttribute('data-date'));
+        return dateA - dateB;
       });
       posts.forEach(post => postsContainer.appendChild(post));
     }
