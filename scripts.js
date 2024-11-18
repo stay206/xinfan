@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    
     // 使用给出的 URL 读取 zc 文件内容并插入到 <main id="posts-container"> 标签内
     fetch('https://stay206.github.io/xinfan/2025/1/zc')
       .then(response => response.text())
       .then(zcPosts => {
+        console.log('Fetched posts successfully');
         const postsContainer = document.getElementById('posts-container');
         postsContainer.innerHTML = zcPosts;
         initializePosts();
@@ -48,30 +51,76 @@ document.addEventListener('DOMContentLoaded', function() {
     // 更新帖子图片
     function updatePostImages() {
       let posts = document.querySelectorAll('.post');
+      let promises = [];
+      
       posts.forEach(post => {
         let link = post.getAttribute('data-link');
         if (link) {
-          // 使用allorigins代理服务器实现跨域请求
-          fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(link)}`)
-            .then(response => response.json())
-            .then(data => {
-              let parser = new DOMParser();
-              let doc = parser.parseFromString(data.contents, 'text/html');
-              let imgElement = doc.querySelector('div[align="center"] a img');
-              if (imgElement) {
-                let src = imgElement.getAttribute('src');
-                // 如果src属性不是以http开头，添加https前缀
-                if (src && !src.startsWith('http')) {
-                  src = 'https:' + src;
-                }
-                post.querySelector('img').setAttribute('src', src);
+          console.log('Fetching image from link:', link);
+          let promise = fetchData(link).then(data => {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(data.contents, 'text/html');
+            let imgElement = doc.querySelector('div[align="center"] a img');
+            if (imgElement) {
+              let src = imgElement.getAttribute('src');
+              console.log('Fetched image src:', src);
+              // 如果src属性不是以http开头，添加https前缀
+              if (src && !src.startsWith('http')) {
+                src = 'https:' + src;
               }
-            })
-            .catch(error => {
-              console.error('Error fetching image:', error);
-            });
+              let img = post.querySelector('img');
+              img.setAttribute('data-src', src); // 使用data-src属性存储图片链接
+              observeImage(img, post); // 观察图片元素，并传递post元素
+            }
+          }).catch(error => {
+            console.error('Error fetching image:', error);
+          });
+          promises.push(promise);
         }
       });
+  
+      // 等待所有图片请求完成
+      Promise.all(promises).then(() => {
+        console.log('All images have been fetched and updated');
+      });
+    }
+  
+    // 数据请求函数，支持缓存
+    function fetchData(link) {
+      const cachedData = localStorage.getItem(link);
+      if (cachedData) {
+        return Promise.resolve(JSON.parse(cachedData));
+      } else {
+        return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(link)}`)
+          .then(response => response.json())
+          .then(data => {
+            localStorage.setItem(link, JSON.stringify(data));
+            return data;
+          });
+      }
+    }
+  
+    // 懒加载图片函数
+    function observeImage(img, post) {
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.getAttribute('data-src'); // 设置src属性
+            observer.unobserve(img); // 停止观察
+            refreshPost(post); // 刷新对应的帖子
+          }
+        });
+      });
+  
+      observer.observe(img);
+    }
+  
+    // 刷新对应的帖子
+    function refreshPost(post) {
+      // 这里可以执行刷新操作，例如重新加载内容
+      post.innerHTML = post.innerHTML; // 简单的刷新操作
+      console.log('Post refreshed:', post);
     }
   
     // 搜索功能：根据输入框的值过滤帖子
@@ -163,30 +212,29 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   
-    // 切换帖子显示和隐藏状态功能
-    document.querySelector('.t-bar-support').addEventListener('click', function() {
-      let hiddenPosts = document.querySelectorAll('.post.hidden');
-      let tBarSupport = document.querySelector('.t-bar-support');
-      if (hiddenPosts.length > 0) {
-        // 显示隐藏的帖子
-        hiddenPosts.forEach(post => {
-          post.classList.remove('hidden');
-        });
-        tBarSupport.textContent = '隐藏';
-      } else {
-        // 隐藏原先隐藏的帖子
-        let posts = document.querySelectorAll('.post');
-        posts.forEach(post => {
-          if (post.getAttribute('data-hidden') === 'true') {
-            post.classList.add('hidden');
-          }
-        });
-        tBarSupport.textContent = '显示';
-      }
-    });
-  
-    // 页面加载时调用排序和分页函数
-    sortPostsByDate();
-    paginatePosts();
+  // 切换帖子显示和隐藏状态功能
+  document.querySelector('.t-bar-support').addEventListener('click', function() {
+    let hiddenPosts = document.querySelectorAll('.post.hidden');
+    let tBarSupport = document.querySelector('.t-bar-support');
+    if (hiddenPosts.length > 0) {
+      // 显示隐藏的帖子
+      hiddenPosts.forEach(post => {
+        post.classList.remove('hidden');
+      });
+      tBarSupport.textContent = '隐藏';
+    } else {
+      // 隐藏原先隐藏的帖子
+      let posts = document.querySelectorAll('.post');
+      posts.forEach(post => {
+        if (post.getAttribute('data-hidden') === 'true') {
+          post.classList.add('hidden');
+        }
+      });
+      tBarSupport.textContent = '显示';
+    }
   });
-  
+
+  // 页面加载时调用排序和分页函数
+  sortPostsByDate();
+  paginatePosts();
+});
