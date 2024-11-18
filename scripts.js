@@ -1,240 +1,186 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed');
-    
     // 使用给出的 URL 读取 zc 文件内容并插入到 <main id="posts-container"> 标签内
     fetch('https://stay206.github.io/xinfan/2025/1/zc')
-      .then(response => response.text())
-      .then(zcPosts => {
-        console.log('Fetched posts successfully');
-        const postsContainer = document.getElementById('posts-container');
-        postsContainer.innerHTML = zcPosts;
-        initializePosts();
-        updatePostImages(); // 调用更新帖子图片的函数
-      })
-      .catch(error => {
-        console.error('Error fetching the posts:', error);
-      });
-  
-    // 初始化帖子数据
-    function initializePosts() {
-      let posts = document.querySelectorAll('.post');
-      posts.forEach(post => {
-        let titleElement = post.querySelector('.post-title h2');
-        let subtitleElement = post.querySelector('.post-title h3');
-        let title = titleElement ? titleElement.textContent.trim() : "";
-        let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
-        let fullTitle = title + " " + subtitle;
-        post.setAttribute('data-title', fullTitle);
-        
-        let tagsElements = post.querySelectorAll('.tag');
-        let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
-        post.setAttribute('data-tags', tags);
-        
-        let dateElement = post.querySelector('.date-text');
-        if (dateElement) {
-          let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(\d{1,2})日?/);
-          if (dateText) {
-            let year = dateText[1];
-            let month = dateText[2].padStart(2, '0'); // 保证月份是两位数
-            let day = dateText[3] ? dateText[3].padStart(2, '0') : '99'; // 如果日期部分缺失，默认为99日
-            let formattedDate = `${year}-${month}-${day}`;
-            post.setAttribute('data-date', formattedDate);
-          }
-        }
-      });
-  
-      sortPostsByDate(); // 调用排序函数
-      paginatePosts(); // 调用分页函数
-      addPostClickEvents(); // 添加点击事件到每个帖子
-    }
-  
-    // 更新帖子图片
-    function updatePostImages() {
-      let posts = document.querySelectorAll('.post');
-      let promises = [];
-      
-      posts.forEach(post => {
-        let link = post.getAttribute('data-link');
-        if (link) {
-          console.log('Fetching image from link:', link);
-          let promise = fetchData(link).then(data => {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(data.contents, 'text/html');
-            let imgElement = doc.querySelector('div[align="center"] a img');
-            if (imgElement) {
-              let src = imgElement.getAttribute('src');
-              console.log('Fetched image src:', src);
-              // 如果src属性不是以http开头，添加https前缀
-              if (src && !src.startsWith('http')) {
-                src = 'https:' + src;
-              }
-              let img = post.querySelector('img');
-              img.setAttribute('data-src', src); // 使用data-src属性存储图片链接
-              observeImage(img, post); // 观察图片元素，并传递post元素
-            }
-          }).catch(error => {
-            console.error('Error fetching image:', error);
-          });
-          promises.push(promise);
-        }
-      });
-  
-      // 等待所有图片请求完成
-      Promise.all(promises).then(() => {
-        console.log('All images have been fetched and updated');
-      });
-    }
-  
-    // 数据请求函数，支持缓存
-    function fetchData(link) {
-      const cachedData = localStorage.getItem(link);
-      if (cachedData) {
-        return Promise.resolve(JSON.parse(cachedData));
-      } else {
-        return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(link)}`)
-          .then(response => response.json())
-          .then(data => {
-            localStorage.setItem(link, JSON.stringify(data));
-            return data;
-          });
-      }
-    }
-  
-    // 懒加载图片函数
-    function observeImage(img, post) {
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.getAttribute('data-src'); // 设置src属性
-            observer.unobserve(img); // 停止观察
-            refreshPost(post); // 刷新对应的帖子
-          }
+        .then(response => response.text())
+        .then(zcPosts => {
+            const postsContainer = document.getElementById('posts-container');
+            postsContainer.innerHTML = zcPosts;
+            // 将内容插入后，继续执行排序和其他功能
+            initializePosts();
+        })
+        .catch(error => {
+            console.error('Error fetching the posts:', error);
         });
-      });
-  
-      observer.observe(img);
+
+    function initializePosts() {
+        let posts = document.querySelectorAll('.post');
+        posts.forEach(post => {
+            let titleElement = post.querySelector('.post-title h2');
+            let subtitleElement = post.querySelector('.post-title h3');
+            let title = titleElement ? titleElement.textContent.trim() : "";
+            let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+            let fullTitle = title + " " + subtitle;
+            post.setAttribute('data-title', fullTitle);
+
+            let tagsElements = post.querySelectorAll('.tag');
+            let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
+            post.setAttribute('data-tags', tags);
+
+            let dateElement = post.querySelector('.date-text');
+            if (dateElement) {
+                let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(\d{1,2})日?/);
+                if (dateText) {
+                    let year = dateText[1];
+                    let month = dateText[2].padStart(2, '0'); // 保证月份是两位数
+                    let day = dateText[3] ? dateText[3].padStart(2, '0') : '99'; // 如果日期部分缺失，默认为99日
+                    let formattedDate = `${year}-${month}-${day}`;
+                    post.setAttribute('data-date', formattedDate);
+                }
+            }
+
+            // 获取并设置图片 src 属性
+            let dataLink = post.getAttribute('data-link');
+            if (dataLink) {
+                fetch(`https://stay206.github.io/xinfan/proxy.php?url=${encodeURIComponent(dataLink)}`)
+                    .then(response => response.text())
+                    .then(htmlString => {
+                        let parser = new DOMParser();
+                        let doc = parser.parseFromString(htmlString, 'text/html');
+                        let alignCenterDiv = doc.querySelector('div[align="center"] img');
+                        if (alignCenterDiv) {
+                            let imgSrc = alignCenterDiv.getAttribute('src');
+                            if (imgSrc) {
+                                post.querySelector('img').setAttribute('src', imgSrc.startsWith('//') ? 'https:' + imgSrc : imgSrc);
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching the linked page:', error);
+                    });
+            }
+        });
+
+        // 调用排序函数
+        sortPostsByDate();
+        // 调用分页函数
+        paginatePosts();
+        // 添加点击事件到每个帖子
+        addPostClickEvents();
     }
-  
-    // 刷新对应的帖子
-    function refreshPost(post) {
-      // 这里可以执行刷新操作，例如重新加载内容
-      post.innerHTML = post.innerHTML; // 简单的刷新操作
-      console.log('Post refreshed:', post);
-    }
-  
+
     // 搜索功能：根据输入框的值过滤帖子
     document.getElementById('search').addEventListener('input', function() {
-      let filter = this.value.toLowerCase();
-      let posts = document.querySelectorAll('.post');
-      posts.forEach(post => {
-        let title = post.getAttribute('data-title').toLowerCase();
-        let tags = post.getAttribute('data-tags').toLowerCase();
-        if (title.includes(filter) || tags.includes(filter)) {
-          post.style.display = '';
-        } else {
-          post.style.display = 'none';
-        }
-      });
+        let filter = this.value.toLowerCase();
+        let posts = document.querySelectorAll('.post');
+        posts.forEach(post => {
+            let title = post.getAttribute('data-title').toLowerCase();
+            let tags = post.getAttribute('data-tags').toLowerCase();
+            if (title.includes(filter) || tags.includes(filter)) {
+                post.style.display = '';
+            } else {
+                post.style.display = 'none';
+            }
+        });
     });
-  
+
     // 按日期排序帖子
     function sortPostsByDate() {
-      let postsContainer = document.getElementById('posts-container');
-      let posts = Array.from(postsContainer.getElementsByClassName('post'));
-      posts.sort((a, b) => {
-        let dateA = new Date(a.getAttribute('data-date'));
-        let dateB = new Date(b.getAttribute('data-date'));
-        return dateA - dateB;
-      });
-      posts.forEach(post => postsContainer.appendChild(post));
+        let postsContainer = document.getElementById('posts-container');
+        let posts = Array.from(postsContainer.getElementsByClassName('post'));
+        posts.sort((a, b) => {
+            let dateA = new Date(a.getAttribute('data-date'));
+            let dateB = new Date(b.getAttribute('data-date'));
+            return dateA - dateB;
+        });
+        posts.forEach(post => postsContainer.appendChild(post));
     }
-  
+
     // 分页功能：将帖子分页显示
     function paginatePosts() {
-      const postsPerPage = 10;
-      const postsContainer = document.getElementById('posts-container');
-      const posts = Array.from(postsContainer.getElementsByClassName('post'));
-      const pagination = document.getElementById('pagination');
-      const totalPages = Math.ceil(posts.length / postsPerPage);
-  
-      function showPage(page) {
-        posts.forEach((post, index) => {
-          post.style.display = (index >= (page - 1) * postsPerPage && index < page * postsPerPage) ? '' : 'none';
-        });
-  
-        pagination.innerHTML = '';
-        for (let i = 1; i <= totalPages; i++) {
-          const button = document.createElement('button');
-          button.textContent = i;
-          button.classList.toggle('disabled', i === page);
-          button.addEventListener('click', () => {
-            showPage(i);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          });
-          pagination.appendChild(button);
+        const postsPerPage = 10;
+        const postsContainer = document.getElementById('posts-container');
+        const posts = Array.from(postsContainer.getElementsByClassName('post'));
+        const pagination = document.getElementById('pagination');
+        const totalPages = Math.ceil(posts.length / postsPerPage);
+
+        function showPage(page) {
+            posts.forEach((post, index) => {
+                post.style.display = (index >= (page - 1) * postsPerPage && index < page * postsPerPage) ? '' : 'none';
+            });
+
+            pagination.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.classList.toggle('disabled', i === page);
+                button.addEventListener('click', () => {
+                    showPage(i);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                pagination.appendChild(button);
+            }
         }
-      }
-      showPage(1);
+
+        showPage(1);
     }
-  
+
     // 禁用分页功能：切换分页功能的启用和禁用
     let paginationDisabled = false;
     document.getElementById('disable-pagination-btn').addEventListener('click', function() {
-      const posts = document.querySelectorAll('.post');
-      if (!paginationDisabled) {
-        posts.forEach(post => post.style.display = '');
-        document.getElementById('pagination').style.display = 'none';
-        this.textContent = '分页显示';
-      } else {
-        paginatePosts();
-        document.getElementById('pagination').style.display = 'flex';
-        this.textContent = '全部显示';
-      }
-      paginationDisabled = !paginationDisabled;
+        const posts = document.querySelectorAll('.post');
+        if (!paginationDisabled) {
+            posts.forEach(post => post.style.display = '');
+            document.getElementById('pagination').style.display = 'none';
+            this.textContent = '分页显示';
+        } else {
+            paginatePosts();
+            document.getElementById('pagination').style.display = 'flex';
+            this.textContent = '全部显示';
+        }
+        paginationDisabled = !paginationDisabled;
     });
-  
+
     // 返回顶部功能：平滑滚动回到页面顶部
     function gotop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  
+
     // 确保 "回到顶部" 按钮的点击事件已注册
     document.getElementById('back-to-top').addEventListener('click', gotop);
-  
+
     // 为每个帖子添加点击事件，跳转到不同的指定链接
     function addPostClickEvents() {
-      document.querySelectorAll('.post').forEach(post => {
-        post.addEventListener('click', function() {
-          const link = post.getAttribute('data-link');
-          window.open(link, '_blank');
+        document.querySelectorAll('.post').forEach(post => {
+            post.addEventListener('click', function() {
+                const link = post.getAttribute('data-link');
+                window.open(link, '_blank');
+            });
         });
-      });
     }
-  
-  // 切换帖子显示和隐藏状态功能
-  document.querySelector('.t-bar-support').addEventListener('click', function() {
-    let hiddenPosts = document.querySelectorAll('.post.hidden');
-    let tBarSupport = document.querySelector('.t-bar-support');
-    if (hiddenPosts.length > 0) {
-      // 显示隐藏的帖子
-      hiddenPosts.forEach(post => {
-        post.classList.remove('hidden');
-      });
-      tBarSupport.textContent = '隐藏';
-    } else {
-      // 隐藏原先隐藏的帖子
-      let posts = document.querySelectorAll('.post');
-      posts.forEach(post => {
-        if (post.getAttribute('data-hidden') === 'true') {
-          post.classList.add('hidden');
-        }
-      });
-      tBarSupport.textContent = '显示';
-    }
-  });
 
-  // 页面加载时调用排序和分页函数
-  sortPostsByDate();
-  paginatePosts();
+    // 切换帖子显示和隐藏状态功能
+    document.querySelector('.t-bar-support').addEventListener('click', function() {
+        let hiddenPosts = document.querySelectorAll('.post.hidden');
+        let tBarSupport = document.querySelector('.t-bar-support');
+        if (hiddenPosts.length > 0) {
+            // 显示隐藏的帖子
+            hiddenPosts.forEach(post => {
+                post.classList.remove('hidden');
+            });
+            tBarSupport.textContent = '隐藏';
+        } else {
+            // 隐藏原先隐藏的帖子
+            let posts = document.querySelectorAll('.post');
+            posts.forEach(post => {
+                if (post.getAttribute('data-hidden') === 'true') {
+                    post.classList.add('hidden');
+                }
+            });
+            tBarSupport.textContent = '显示';
+        }
+    });
+
+    // 页面加载时调用排序和分页函数
+    sortPostsByDate();
+    paginatePosts();
 });
