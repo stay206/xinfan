@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const postsContainer = document.getElementById('posts-container');
         postsContainer.innerHTML = zcPosts;
         initializePosts();
-        updatePostImages(); // 调用更新帖子图片的函数
+        setDefaultImageIfEmpty(); // 调用设置默认图片的函数
       })
       .catch(error => {
         console.error('Error fetching the posts:', error);
@@ -48,56 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
       addPostClickEvents(); // 添加点击事件到每个帖子
     }
   
-    // 更新帖子图片
-    function updatePostImages() {
-      let posts = document.querySelectorAll('.post');
-      let promises = [];
-      
-      posts.forEach(post => {
-        let link = post.getAttribute('data-link');
-        if (link) {
-          console.log('Fetching image from link:', link);
-          let promise = fetchData(link).then(data => {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(data.contents, 'text/html');
-            let imgElement = doc.querySelector('div[align="center"] a img');
-            if (imgElement) {
-              let src = imgElement.getAttribute('src');
-              console.log('Fetched image src:', src);
-              // 如果src属性不是以http开头，添加https前缀
-              if (src && !src.startsWith('http')) {
-                src = 'https:' + src;
-              }
-              let img = post.querySelector('img');
-              img.setAttribute('src', src); // 直接更新src属性
-              softRefresh(post); // 调用软刷新函数
-            }
-          }).catch(error => {
-            console.error('Error fetching image:', error);
-          });
-          promises.push(promise);
+    // 设置默认图片的函数
+    function setDefaultImageIfEmpty() {
+      let posts = document.querySelectorAll('.post img');
+      posts.forEach(img => {
+        if (!img.getAttribute('src')) {
+          img.setAttribute('src', 'https://stay206.github.io/portfolio-master/img/ava.jpg');
         }
       });
-  
-      // 并行处理所有图片请求，等待所有请求完成后执行
-      Promise.all(promises).then(() => {
-        console.log('All images have been fetched and updated');
-      });
-    }
-  
-    // 数据请求函数，支持缓存
-    function fetchData(link) {
-      const cachedData = localStorage.getItem(link);
-      if (cachedData) {
-        return Promise.resolve(JSON.parse(cachedData));
-      } else {
-        return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(link)}`)
-          .then(response => response.json())
-          .then(data => {
-            localStorage.setItem(link, JSON.stringify(data));
-            return data;
-          });
-      }
     }
   
     // 搜索功能：根据输入框的值过滤帖子
@@ -199,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         tBarSupport.textContent = '隐藏';
       } else {
-        // 隐藏原先隐藏的帖子
         let posts = document.querySelectorAll('.post');
         posts.forEach(post => {
           if (post.getAttribute('data-hidden') === 'true') {
@@ -213,13 +170,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // 页面加载时调用排序和分页函数
     sortPostsByDate();
     paginatePosts();
-  
-    // 软刷新函数：动态更新帖子部分而不刷新整个页面
-    function softRefresh(post) {
-      const newContent = post.innerHTML;
-      post.innerHTML = ''; // 清空内容
-      post.innerHTML = newContent; // 设置新内容
-      console.log('Post soft refreshed:', post);
-    }
   });
   
