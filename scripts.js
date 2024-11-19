@@ -156,70 +156,78 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // 切换帖子显示和隐藏状态功能
-  document.querySelector('.t-bar-support').addEventListener('click', function() {
-    let hiddenPosts = document.querySelectorAll('.post.hidden');
-    let tBarSupport = document.querySelector('.t-bar-support');
-    if (hiddenPosts.length > 0) {
-      hiddenPosts.forEach(post => {
-        post.classList.remove('hidden');
-      });
-      tBarSupport.textContent = '隐藏';
-    } else {
-      let posts = document.querySelectorAll('.post');
-      posts.forEach(post => {
-        if (post.getAttribute('data-hidden') === 'true') {
-          post.classList.add('hidden');
-        }
-      });
-      tBarSupport.textContent = '显示';
-    }
-  });
-
   // 显示和隐藏 "关于" 和 "首页" 部分的功能
   const homeLink = document.querySelector('nav a[href="#home"]');
   const aboutLink = document.querySelector('nav a[href="#about"]');
   const postsContainer = document.getElementById('posts-container');
   const pagination = document.getElementById('pagination');
   const disablePaginationButton = document.getElementById('disable-pagination-btn');
-  const tableContainer = document.createElement('div'); // 创建一个div来放表格内容
-
-  // 请求并加载 bg.html 的内容
-  fetch('2025/1/bg.html')
-    .then(response => response.text())
-    .then(data => {
-      tableContainer.innerHTML = data;
-    })
-    .catch(error => {
-      console.error('Error loading table:', error);
-    });
+  const banner = document.getElementById('banner');
+  let tableContainer; // 定义 tableContainer
 
   function showHome() {
       postsContainer.style.display = '';
       pagination.style.display = '';
       disablePaginationButton.style.display = '';
-      tableContainer.style.display = 'none'; // 隐藏表格
+      if (tableContainer && tableContainer.parentNode) {
+          tableContainer.parentNode.removeChild(tableContainer); // 隐藏表格
+      }
   }
 
   function showAbout() {
+      fetch('https://stay206.github.io/xinfan/2025/1/bg')
+        .then(response => response.text())
+        .then(data => {
+          tableContainer = document.createElement('div');
+          tableContainer.innerHTML = data;
+          banner.insertAdjacentElement('afterend', tableContainer); // 显示表格
+          populateTable(); // 调用填充表格函数
+        })
+        .catch(error => {
+          console.error('Error loading table:', error);
+        });
+      
       postsContainer.style.display = 'none';
       pagination.style.display = 'none';
       disablePaginationButton.style.display = 'none';
-      tableContainer.style.display = 'block'; // 显示表格
+  }
+
+  function populateTable() {
+      const tableBody = tableContainer.querySelector('tbody');
+      const posts = document.querySelectorAll('.post');
+
+      posts.forEach(post => {
+          const titleElement = post.querySelector('.post-title h2');
+          const subtitleElement = post.querySelector('.post-title h3');
+          const firstTagElement = post.querySelector('.tag');
+          const date = post.getAttribute('data-date');
+          
+          const title = titleElement ? titleElement.textContent.trim() : "";
+          const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+          const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
+          
+          const newRow = document.createElement('tr');
+          newRow.innerHTML = `
+              <td>${title}</td>
+              <td>${subtitle}</td>
+              <td>${firstTag}</td>
+              <td>${date}</td>
+              <td>1</td>
+              <td></td>
+          `;
+          tableBody.appendChild(newRow);
+      });
   }
 
   homeLink.addEventListener('click', function() {
-      showHome();
-  });
+    showHome();
+});
 
-  aboutLink.addEventListener('click', function() {
-      showAbout();
-  });
+aboutLink.addEventListener('click', function() {
+    showAbout();
+});
 
-  // 将表格容器添加到页面
-  document.body.appendChild(tableContainer);
-
-  // 页面加载时调用排序和分页函数
-  sortPostsByDate();
-  paginatePosts();
+// 页面加载时调用排序和分页函数
+sortPostsByDate();
+paginatePosts();
 });
