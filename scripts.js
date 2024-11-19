@@ -204,17 +204,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const posts = document.querySelectorAll('.post');
 
       posts.forEach(post => {
-          const titleElement = post.querySelector('.post-title h2');
-          const subtitleElement = post.querySelector('.post-title h3');
-          const firstTagElement = post.querySelector('.tag');
-          const date = post.getAttribute('data-date');
+          const titleElement = post.querySelector('.post-title h2');// 获取中文名
+          const subtitleElement = post.querySelector('.post-title h3');// 获取原名
+          const firstTagElement = post.querySelector('.tag');// 获取类型
+          const date = post.getAttribute('data-date');// 播放时间
           const weekday = getWeekday(date); // 获取播放星期
-          const episodeElement = post.querySelector('.jishu');
+          const episodeElement = post.querySelector('.jishu');// 获取集数
+          const updateElement = post.querySelector('div[style*="display: none"]'); // 获取国内更新时间的元素
           
           const title = titleElement ? titleElement.textContent.trim() : "";
           const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
           const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
-          const episodeCount = episodeElement ? episodeElement.textContent.trim() : ""; // 默认为1集
+          const episodeCount = episodeElement ? episodeElement.textContent.trim() : ""; // 默认为空
+          const updateDate = updateElement ? updateElement.textContent.trim() : ""; // 获取国内更新时间
           
             // 判断日期是否为99
             const displayDate = date.endsWith('-99') ? date.substring(0, 7) : date;
@@ -226,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="nowrap">${firstTag}</td>
                 <td class="nowrap">${displayDate}</td>
                 <td class="nowrap">${weekday}</td>
-                <td class="nowrap"></td>
+                <td class="nowrap">${updateDate}</td>
                 <td class="nowrap">${episodeCount}</td>
             `;
             if (post.classList.contains('hidden')) {
