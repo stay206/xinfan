@@ -215,19 +215,48 @@ document.addEventListener('DOMContentLoaded', function() {
               <td>1</td>
               <td></td>
           `;
-          tableBody.appendChild(newRow);
-      });
-  }
+          if (post.classList.contains('hidden')) {
+              newRow.classList.add('hidden');
+            }
+            tableBody.appendChild(newRow);
+        });
+    }
 
-  homeLink.addEventListener('click', function() {
-    showHome();
-});
+    homeLink.addEventListener('click', function() {
+        showHome();
+    });
 
-aboutLink.addEventListener('click', function() {
-    showAbout();
-});
+    aboutLink.addEventListener('click', function() {
+        showAbout();
+    });
 
-// 页面加载时调用排序和分页函数
-sortPostsByDate();
-paginatePosts();
+    // 切换帖子显示和隐藏状态功能
+    document.querySelector('.t-bar-support').addEventListener('click', function() {
+        let posts = document.querySelectorAll('.post');
+        let tableRows = tableContainer ? tableContainer.querySelectorAll('tbody tr') : [];
+
+        if (this.textContent === '显示') {
+            posts.forEach(post => post.classList.remove('hidden'));
+            tableRows.forEach(row => row.classList.remove('hidden'));
+            this.textContent = '隐藏';
+        } else {
+            posts.forEach(post => {
+                if (post.getAttribute('data-hidden') === 'true') {
+                    post.classList.add('hidden');
+                }
+            });
+            tableRows.forEach(row => {
+                let title = row.querySelector('td').textContent.trim();
+                let matchingPost = Array.from(posts).find(post => post.querySelector('.post-title h2').textContent.trim() === title);
+                if (matchingPost && matchingPost.getAttribute('data-hidden') === 'true') {
+                    row.classList.add('hidden');
+                }
+            });
+            this.textContent = '显示';
+        }
+    });
+
+    // 页面加载时调用排序和分页函数
+    sortPostsByDate();
+    paginatePosts();
 });
