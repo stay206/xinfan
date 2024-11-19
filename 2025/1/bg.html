@@ -20,6 +20,10 @@
             word-wrap: break-word; /* 允许单词换行 */
         }
 
+        .left-align {
+            text-align: left; /* 左对齐 */
+        }
+
         .nowrap {
             white-space: nowrap; /* 禁止换行 */
         }
@@ -30,13 +34,13 @@
     <table>
         <thead>
             <tr>
-                <th>中文名</th>
-                <th>原名</th>
-                <th>类型</th>
-                <th>播放时间</th>
-                <th>放送星期</th>
-                <th>集数</th>
-                <th>国内更新时间</th>
+                <th class="left-align nowrap">中文名</th>
+                <th class="left-align nowrap">原名</th>
+                <th class="nowrap">类型</th>
+                <th class="nowrap">播放时间</th>
+                <th class="nowrap">放送星期</th>
+                <th class="nowrap">集数</th>
+                <th class="nowrap">国内更新时间</th>
             </tr>
         </thead>
         <tbody>

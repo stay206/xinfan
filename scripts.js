@@ -200,36 +200,36 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function populateTable() {
-      const tableBody = tableContainer.querySelector('tbody');
-      const posts = document.querySelectorAll('.post');
+    const tableBody = tableContainer.querySelector('tbody');
+    const posts = document.querySelectorAll('.post');
 
-      posts.forEach(post => {
-          const titleElement = post.querySelector('.post-title h2');
-          const subtitleElement = post.querySelector('.post-title h3');
-          const firstTagElement = post.querySelector('.tag');
-          const date = post.getAttribute('data-date');
-          const weekday = getWeekday(date); // 获取播放星期
-          
-          const title = titleElement ? titleElement.textContent.trim() : "";
-          const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
-          const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
-          
-          const newRow = document.createElement('tr');
-          newRow.innerHTML = `
-              <td>${title}</td>
-              <td>${subtitle}</td>
-              <td>${firstTag}</td>
-              <td class="nowrap">${date}</td> <!-- 添加 nowrap 类 -->
-              <td>${weekday}</td>
-              <td></td>
-              <td></td>
-          `;
-          if (post.classList.contains('hidden')) {
-              newRow.classList.add('hidden');
-          }
-          tableBody.appendChild(newRow);
-      });
-  }
+    posts.forEach(post => {
+        const titleElement = post.querySelector('.post-title h2');
+        const subtitleElement = post.querySelector('.post-title h3');
+        const firstTagElement = post.querySelector('.tag');
+        const date = post.getAttribute('data-date');
+        const weekday = getWeekday(date); // 获取播放星期
+        
+        const title = titleElement ? titleElement.textContent.trim() : "";
+        const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+        const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
+        
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td class="nowrap">${title}</td>
+            <td class="nowrap">${subtitle}</td>
+            <td class="nowrap">${firstTag}</td>
+            <td class="nowrap">${date}</td>
+            <td class="nowrap">${weekday}</td>
+            <td class="nowrap">1</td>
+            <td class="nowrap"></td>
+        `;
+        if (post.classList.contains('hidden')) {
+            newRow.classList.add('hidden');
+        }
+        tableBody.appendChild(newRow);
+    });
+}
 
   homeLink.addEventListener('click', function() {
       showHome();
