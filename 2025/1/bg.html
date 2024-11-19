@@ -9,12 +9,15 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            align-items: center;
+            table-layout: auto; /* 自适应表格 */
         }
 
         th, td {
             border: 1px solid black;
             padding: 8px;
-            text-align: left;
+            text-align: center; /* 文字居中 */
+            word-wrap: break-word; /* 允许单词换行 */
         }
     </style>
 </head>
@@ -27,8 +30,9 @@
                 <th>原名</th>
                 <th>类型</th>
                 <th>播放时间</th>
-                <th>集数</th>
+                <th>放送星期</th>
                 <th>国内更新时间</th>
+                <th>集数</th>
             </tr>
         </thead>
         <tbody>
