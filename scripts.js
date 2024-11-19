@@ -156,6 +156,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // 日期转换为星期的函数
+  function getWeekday(dateString) {
+      const date = new Date(dateString);
+      const weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+      return weekdays[date.getUTCDay()];
+  }
+
   // 显示和隐藏 "关于" 和 "首页" 部分的功能
   const homeLink = document.querySelector('nav a[href="#home"]');
   const aboutLink = document.querySelector('nav a[href="#about"]');
@@ -201,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const subtitleElement = post.querySelector('.post-title h3');
           const firstTagElement = post.querySelector('.tag');
           const date = post.getAttribute('data-date');
+          const weekday = getWeekday(date); // 获取播放星期
           
           const title = titleElement ? titleElement.textContent.trim() : "";
           const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
@@ -211,52 +219,53 @@ document.addEventListener('DOMContentLoaded', function() {
               <td>${title}</td>
               <td>${subtitle}</td>
               <td>${firstTag}</td>
-              <td>${date}</td>
-              <td>1</td>
+              <td class="nowrap">${date}</td> <!-- 添加 nowrap 类 -->
+              <td>${weekday}</td>
+              <td></td>
               <td></td>
           `;
           if (post.classList.contains('hidden')) {
               newRow.classList.add('hidden');
-            }
-            tableBody.appendChild(newRow);
-        });
-    }
+          }
+          tableBody.appendChild(newRow);
+      });
+  }
 
-    homeLink.addEventListener('click', function() {
-        showHome();
-    });
+  homeLink.addEventListener('click', function() {
+      showHome();
+  });
 
-    aboutLink.addEventListener('click', function() {
-        showAbout();
-    });
+  aboutLink.addEventListener('click', function() {
+      showAbout();
+  });
 
-    // 切换帖子显示和隐藏状态功能
-    document.querySelector('.t-bar-support').addEventListener('click', function() {
-        let posts = document.querySelectorAll('.post');
-        let tableRows = tableContainer ? tableContainer.querySelectorAll('tbody tr') : [];
+  // 切换帖子显示和隐藏状态功能
+  document.querySelector('.t-bar-support').addEventListener('click', function() {
+      let posts = document.querySelectorAll('.post');
+      let tableRows = tableContainer ? tableContainer.querySelectorAll('tbody tr') : [];
 
-        if (this.textContent === '显示') {
-            posts.forEach(post => post.classList.remove('hidden'));
-            tableRows.forEach(row => row.classList.remove('hidden'));
-            this.textContent = '隐藏';
-        } else {
-            posts.forEach(post => {
-                if (post.getAttribute('data-hidden') === 'true') {
-                    post.classList.add('hidden');
-                }
-            });
-            tableRows.forEach(row => {
-                let title = row.querySelector('td').textContent.trim();
-                let matchingPost = Array.from(posts).find(post => post.querySelector('.post-title h2').textContent.trim() === title);
-                if (matchingPost && matchingPost.getAttribute('data-hidden') === 'true') {
-                    row.classList.add('hidden');
-                }
-            });
-            this.textContent = '显示';
-        }
-    });
+      if (this.textContent === '显示') {
+          posts.forEach(post => post.classList.remove('hidden'));
+          tableRows.forEach(row => row.classList.remove('hidden'));
+          this.textContent = '隐藏';
+      } else {
+          posts.forEach(post => {
+              if (post.getAttribute('data-hidden') === 'true') {
+                  post.classList.add('hidden');
+              }
+          });
+          tableRows.forEach(row => {
+              let title = row.querySelector('td').textContent.trim();
+              let matchingPost = Array.from(posts).find(post => post.querySelector('.post-title h2').textContent.trim() === title);
+              if (matchingPost && matchingPost.getAttribute('data-hidden') === 'true') {
+                  row.classList.add('hidden');
+              }
+          });
+          this.textContent = '显示';
+      }
+  });
 
-    // 页面加载时调用排序和分页函数
-    sortPostsByDate();
-    paginatePosts();
+  // 页面加载时调用排序和分页函数
+  sortPostsByDate();
+  paginatePosts();
 });
