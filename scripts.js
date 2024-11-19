@@ -274,3 +274,22 @@ document.addEventListener('DOMContentLoaded', function() {
     sortPostsByDate();
     paginatePosts();
 });
+
+// 切换导航栏样式
+document.addEventListener('DOMContentLoaded', function() {
+  const homeLink = document.getElementById('home-link'); // 获取“首页”链接元素
+  const aboutLink = document.getElementById('about-link'); // 获取“时间表”链接元素
+
+  // 为“首页”链接添加点击事件
+  homeLink.addEventListener('click', function() {
+      homeLink.classList.add('active'); // 为“首页”链接添加 'active' 类
+      aboutLink.classList.remove('active'); // 移除“时间表”链接的 'active' 类
+  });
+
+  // 为“时间表”链接添加点击事件
+  aboutLink.addEventListener('click', function() {
+      aboutLink.classList.add('active'); // 为“时间表”链接添加 'active' 类
+      homeLink.classList.remove('active'); // 移除“首页”链接的 'active' 类
+  });
+});
+

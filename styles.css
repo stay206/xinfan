@@ -633,3 +633,9 @@ body.is-loading #banner:after {
         padding: 50px 40px;
     }
 }
+
+/* 切换导航栏链接的样式 */
+  .active {
+    color: red; /* 根据需要修改样式 */
+    font-weight: bold;
+  }
