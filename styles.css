@@ -361,7 +361,8 @@ footer .copyright a:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; /* 确保内容水平居中 */
+    align-items: center;
+    /* 确保内容水平居中 */
     cursor: default;
     height: 100vh;
     min-height: 35em;
@@ -372,7 +373,8 @@ footer .copyright a:hover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: white; /* 将文字颜色改为白色 */
+    color: white;
+    /* 将文字颜色改为白色 */
 }
 
 #banner:before {
@@ -382,22 +384,29 @@ footer .copyright a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* 添加一层透明浅黑色图层 */
+    background: rgba(0, 0, 0, 0.5);
+    /* 添加一层透明浅黑色图层 */
     z-index: 0;
 }
 
 #banner .inner {
     position: relative;
-    z-index: 1; /* 确保内容在黑色图层之上 */
+    z-index: 1;
+    /* 确保内容在黑色图层之上 */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; /* 确保内容水平居中 */
-    height: 100%; /* 确保内容垂直居中 */
+    align-items: center;
+    /* 确保内容水平居中 */
+    height: 100%;
+    /* 确保内容垂直居中 */
 }
 
-#banner h2, #banner p, #banner a {
-    color: white; /* 确保所有文字颜色为白色 */
+#banner h2,
+#banner p,
+#banner a {
+    color: white;
+    /* 确保所有文字颜色为白色 */
 }
 
 #banner h2 {
@@ -619,7 +628,7 @@ body.is-loading #banner:after {
     justify-content: center;
 }
 
-.web_notice > div {
+.web_notice>div {
     width: 90%;
     max-width: 550px;
     background: #FFF;
@@ -629,13 +638,14 @@ body.is-loading #banner:after {
 }
 
 @media (min-width: 768px) {
-    .web_notice > div {
+    .web_notice>div {
         padding: 50px 40px;
     }
 }
 
 /* 切换导航栏链接的样式 */
-  .active {
-    color: red; /* 根据需要修改样式 */
+.active {
+    color: red;
+    /* 根据需要修改样式 */
     font-weight: bold;
-  }
+}

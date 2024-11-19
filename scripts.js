@@ -1,8 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM fully loaded and parsed');
-  
+
+  // 获取当前HTML文件的链接，并修改后缀为 "zc.html" 
+  const currentURL = window.location.href; 
+  const zcURL = currentURL.replace(/\/[^\/]*$/, '/zc.html');
+
   // 使用给出的 URL 读取 zc 文件内容并插入到 <main id="posts-container"> 标签内
-  fetch('https://stay206.github.io/xinfan/2025/1/zc')
+  fetch(zcURL)
     .then(response => response.text())
     .then(zcPosts => {
       console.log('Fetched posts successfully');
@@ -25,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
       let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
       let fullTitle = title + " " + subtitle;
       post.setAttribute('data-title', fullTitle);
-      
+
       let tagsElements = post.querySelectorAll('.tag');
       let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
       post.setAttribute('data-tags', tags);
-      
+
       let dateElement = post.querySelector('.date-text');
       if (dateElement) {
         let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(?:(\d{1,2})日?)?/);
@@ -60,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 搜索功能：根据输入框的值过滤帖子
-  document.getElementById('search').addEventListener('input', function() {
+  document.getElementById('search').addEventListener('input', function () {
     let filter = this.value.toLowerCase();
     let posts = document.querySelectorAll('.post');
     posts.forEach(post => {
@@ -110,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         pagination.appendChild(button);
       }
-      
+
       // 显示或隐藏横幅部分
       const banner = document.getElementById('banner');
       if (page === 1) {
@@ -124,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 禁用分页功能：切换分页功能的启用和禁用
   let paginationDisabled = false;
-  document.getElementById('disable-pagination-btn').addEventListener('click', function() {
+  document.getElementById('disable-pagination-btn').addEventListener('click', function () {
     const posts = document.querySelectorAll('.post');
     if (!paginationDisabled) {
       posts.forEach(post => post.style.display = '');
@@ -149,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 为每个帖子添加点击事件，跳转到不同的指定链接
   function addPostClickEvents() {
     document.querySelectorAll('.post').forEach(post => {
-      post.addEventListener('click', function() {
+      post.addEventListener('click', function () {
         const link = post.getAttribute('data-link');
         window.open(link, '_blank');
       });
@@ -158,9 +162,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 日期转换为星期的函数
   function getWeekday(dateString) {
-      const date = new Date(dateString);
-      const weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-      return isNaN(date.getUTCDay()) ? "" : weekdays[date.getUTCDay()];
+    const date = new Date(dateString);
+    const weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    return isNaN(date.getUTCDay()) ? "" : weekdays[date.getUTCDay()];
   }
 
   // 显示和隐藏 "关于" 和 "首页" 部分的功能
@@ -173,56 +177,56 @@ document.addEventListener('DOMContentLoaded', function() {
   let tableContainer; // 定义 tableContainer
 
   function showHome() {
-      postsContainer.style.display = '';
-      pagination.style.display = '';
-      disablePaginationButton.style.display = '';
-      if (tableContainer && tableContainer.parentNode) {
-          tableContainer.parentNode.removeChild(tableContainer); // 隐藏表格
-      }
+    postsContainer.style.display = '';
+    pagination.style.display = '';
+    disablePaginationButton.style.display = '';
+    if (tableContainer && tableContainer.parentNode) {
+      tableContainer.parentNode.removeChild(tableContainer); // 隐藏表格
+    }
   }
 
   function showAbout() {
-      fetch('https://stay206.github.io/xinfan/2025/1/bg')
-        .then(response => response.text())
-        .then(data => {
-          tableContainer = document.createElement('div');
-          tableContainer.innerHTML = data;
-          banner.insertAdjacentElement('afterend', tableContainer); // 显示表格
-          populateTable(); // 调用填充表格函数
-        })
-        .catch(error => {
-          console.error('Error loading table:', error);
-        });
-      
-      postsContainer.style.display = 'none';
-      pagination.style.display = 'none';
-      disablePaginationButton.style.display = 'none';
+    fetch('https://stay206.github.io/xinfan/bg')
+      .then(response => response.text())
+      .then(data => {
+        tableContainer = document.createElement('div');
+        tableContainer.innerHTML = data;
+        banner.insertAdjacentElement('afterend', tableContainer); // 显示表格
+        populateTable(); // 调用填充表格函数
+      })
+      .catch(error => {
+        console.error('Error loading table:', error);
+      });
+
+    postsContainer.style.display = 'none';
+    pagination.style.display = 'none';
+    disablePaginationButton.style.display = 'none';
   }
 
   function populateTable() {
-      const tableBody = tableContainer.querySelector('tbody');
-      const posts = document.querySelectorAll('.post');
+    const tableBody = tableContainer.querySelector('tbody');
+    const posts = document.querySelectorAll('.post');
 
-      posts.forEach(post => {
-          const titleElement = post.querySelector('.post-title h2');// 获取中文名
-          const subtitleElement = post.querySelector('.post-title h3');// 获取原名
-          const firstTagElement = post.querySelector('.tag');// 获取类型
-          const date = post.getAttribute('data-date');// 播放时间
-          const weekday = getWeekday(date); // 获取播放星期
-          const episodeElement = post.querySelector('.jishu');// 获取集数
-          const updateElement = post.querySelector('div[style*="display: none"]'); // 获取国内更新时间的元素
-          
-          const title = titleElement ? titleElement.textContent.trim() : "";
-          const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
-          const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
-          const episodeCount = episodeElement ? episodeElement.textContent.trim() : ""; // 默认为空
-          const updateDate = updateElement ? updateElement.textContent.trim() : ""; // 获取国内更新时间
-          
-            // 判断日期是否为99
-            const displayDate = date.endsWith('-99') ? date.substring(0, 7) : date;
+    posts.forEach(post => {
+      const titleElement = post.querySelector('.post-title h2');// 获取中文名
+      const subtitleElement = post.querySelector('.post-title h3');// 获取原名
+      const firstTagElement = post.querySelector('.tag');// 获取类型
+      const date = post.getAttribute('data-date');// 播放时间
+      const weekday = getWeekday(date); // 获取播放星期
+      const episodeElement = post.querySelector('.jishu');// 获取集数
+      const updateElement = post.querySelector('div[style*="display: none"]'); // 获取国内更新时间的元素
 
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
+      const title = titleElement ? titleElement.textContent.trim() : "";
+      const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+      const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
+      const episodeCount = episodeElement ? episodeElement.textContent.trim() : ""; // 默认为空
+      const updateDate = updateElement ? updateElement.textContent.trim() : ""; // 获取国内更新时间
+
+      // 判断日期是否为99
+      const displayDate = date.endsWith('-99') ? date.substring(0, 7) : date;
+
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
                 <td class="left-align">${title}</td>
                 <td class="left-align">${subtitle}</td>
                 <td class="nowrap">${firstTag}</td>
@@ -231,91 +235,91 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="nowrap">${updateDate}</td>
                 <td class="nowrap">${episodeCount}</td>
             `;
-            if (post.classList.contains('hidden')) {
-                newRow.classList.add('hidden');
-            }
-            tableBody.appendChild(newRow);
-        });
-    }
-
-    homeLink.addEventListener('click', function() {
-        showHome();
+      if (post.classList.contains('hidden')) {
+        newRow.classList.add('hidden');
+      }
+      tableBody.appendChild(newRow);
     });
+  }
 
-    aboutLink.addEventListener('click', function() {
-        showAbout();
-    });
+  homeLink.addEventListener('click', function () {
+    showHome();
+  });
 
-    // 切换帖子显示和隐藏状态功能
-    document.querySelector('.t-bar-support').addEventListener('click', function() {
-        let posts = document.querySelectorAll('.post');
-        let tableRows = tableContainer ? tableContainer.querySelectorAll('tbody tr') : [];
+  aboutLink.addEventListener('click', function () {
+    showAbout();
+  });
 
-        if (this.textContent === '显示') {
-            posts.forEach(post => post.classList.remove('hidden'));
-            tableRows.forEach(row => row.classList.remove('hidden'));
-            this.textContent = '隐藏';
-        } else {
-            posts.forEach(post => {
-                if (post.getAttribute('data-hidden') === 'true') {
-                    post.classList.add('hidden');
-                }
-            });
-            tableRows.forEach(row => {
-                let title = row.querySelector('td').textContent.trim();
-                let matchingPost = Array.from(posts).find(post => post.querySelector('.post-title h2').textContent.trim() === title);
-                if (matchingPost && matchingPost.getAttribute('data-hidden') === 'true') {
-                    row.classList.add('hidden');
-                }
-            });
-            this.textContent = '显示';
+  // 切换帖子显示和隐藏状态功能
+  document.querySelector('.t-bar-support').addEventListener('click', function () {
+    let posts = document.querySelectorAll('.post');
+    let tableRows = tableContainer ? tableContainer.querySelectorAll('tbody tr') : [];
+
+    if (this.textContent === '显示') {
+      posts.forEach(post => post.classList.remove('hidden'));
+      tableRows.forEach(row => row.classList.remove('hidden'));
+      this.textContent = '隐藏';
+    } else {
+      posts.forEach(post => {
+        if (post.getAttribute('data-hidden') === 'true') {
+          post.classList.add('hidden');
         }
-    });
+      });
+      tableRows.forEach(row => {
+        let title = row.querySelector('td').textContent.trim();
+        let matchingPost = Array.from(posts).find(post => post.querySelector('.post-title h2').textContent.trim() === title);
+        if (matchingPost && matchingPost.getAttribute('data-hidden') === 'true') {
+          row.classList.add('hidden');
+        }
+      });
+      this.textContent = '显示';
+    }
+  });
 
-    // 页面加载时调用排序和分页函数
-    sortPostsByDate();
-    paginatePosts();
+  // 页面加载时调用排序和分页函数
+  sortPostsByDate();
+  paginatePosts();
 });
 
 // 切换导航栏样式
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const homeLink = document.getElementById('home-link'); // 获取“首页”链接元素
   const aboutLink = document.getElementById('about-link'); // 获取“时间表”链接元素
 
   // 为“首页”链接添加点击事件
-  homeLink.addEventListener('click', function() {
-      homeLink.classList.add('active'); // 为“首页”链接添加 'active' 类
-      aboutLink.classList.remove('active'); // 移除“时间表”链接的 'active' 类
+  homeLink.addEventListener('click', function () {
+    homeLink.classList.add('active'); // 为“首页”链接添加 'active' 类
+    aboutLink.classList.remove('active'); // 移除“时间表”链接的 'active' 类
   });
 
   // 为“时间表”链接添加点击事件
-  aboutLink.addEventListener('click', function() {
-      aboutLink.classList.add('active'); // 为“时间表”链接添加 'active' 类
-      homeLink.classList.remove('active'); // 移除“首页”链接的 'active' 类
+  aboutLink.addEventListener('click', function () {
+    aboutLink.classList.add('active'); // 为“时间表”链接添加 'active' 类
+    homeLink.classList.remove('active'); // 移除“首页”链接的 'active' 类
   });
 });
 
 // 随机生成颜色的函数
 function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
 
 // 随机生成渐变背景
 function setRandomGradient() {
-    const color1 = getRandomColor();
-    const color2 = getRandomColor();
-    const color3 = getRandomColor();
-    const gradient = `linear-gradient(270deg, ${color1}, ${color2}, ${color3}, ${color1})`;
-    
-    const header = document.querySelector('header');
-    header.style.background = gradient;
-    header.style.backgroundSize = '600% 600%';
-    header.style.animation = 'gradient 15s ease infinite';
+  const color1 = getRandomColor();
+  const color2 = getRandomColor();
+  const color3 = getRandomColor();
+  const gradient = `linear-gradient(270deg, ${color1}, ${color2}, ${color3}, ${color1})`;
+
+  const header = document.querySelector('header');
+  header.style.background = gradient;
+  header.style.backgroundSize = '600% 600%';
+  header.style.animation = 'gradient 15s ease infinite';
 }
 
 // 页面加载时设置随机渐变背景
