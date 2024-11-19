@@ -295,3 +295,29 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// 随机生成颜色的函数
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+// 随机生成渐变背景
+function setRandomGradient() {
+    const color1 = getRandomColor();
+    const color2 = getRandomColor();
+    const color3 = getRandomColor();
+    const gradient = `linear-gradient(270deg, ${color1}, ${color2}, ${color3}, ${color1})`;
+    
+    const header = document.querySelector('header');
+    header.style.background = gradient;
+    header.style.backgroundSize = '600% 600%';
+    header.style.animation = 'gradient 15s ease infinite';
+}
+
+// 页面加载时设置随机渐变背景
+document.addEventListener('DOMContentLoaded', setRandomGradient);
+
