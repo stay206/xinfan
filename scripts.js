@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function getWeekday(dateString) {
       const date = new Date(dateString);
       const weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-      return weekdays[date.getUTCDay()];
+      return isNaN(date.getUTCDay()) ? "" : weekdays[date.getUTCDay()];
   }
 
   // 显示和隐藏 "关于" 和 "首页" 部分的功能
@@ -200,73 +200,77 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function populateTable() {
-    const tableBody = tableContainer.querySelector('tbody');
-    const posts = document.querySelectorAll('.post');
+      const tableBody = tableContainer.querySelector('tbody');
+      const posts = document.querySelectorAll('.post');
 
-    posts.forEach(post => {
-        const titleElement = post.querySelector('.post-title h2');
-        const subtitleElement = post.querySelector('.post-title h3');
-        const firstTagElement = post.querySelector('.tag');
-        const date = post.getAttribute('data-date');
-        const weekday = getWeekday(date); // 获取播放星期
-        
-        const title = titleElement ? titleElement.textContent.trim() : "";
-        const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
-        const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
-        
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td class="left-align">${title}</td>
-            <td class="left-align">${subtitle}</td>
-            <td class="nowrap">${firstTag}</td>
-            <td class="nowrap">${date}</td>
-            <td class="nowrap">${weekday}</td>
-            <td class="nowrap"></td>
-            <td class="nowrap"></td>
-        `;
-        if (post.classList.contains('hidden')) {
-            newRow.classList.add('hidden');
-        }
-        tableBody.appendChild(newRow);
+      posts.forEach(post => {
+          const titleElement = post.querySelector('.post-title h2');
+          const subtitleElement = post.querySelector('.post-title h3');
+          const firstTagElement = post.querySelector('.tag');
+          const date = post.getAttribute('data-date');
+          const weekday = getWeekday(date); // 获取播放星期
+          const episodeElement = post.querySelector('.jishu');
+          
+          const title = titleElement ? titleElement.textContent.trim() : "";
+          const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+          const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
+          const episodeCount = episodeElement ? episodeElement.textContent.trim() : ""; // 默认为1集
+          
+            // 判断日期是否为99
+            const displayDate = date.endsWith('-99') ? date.substring(0, 7) : date;
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td class="left-align">${title}</td>
+                <td class="left-align">${subtitle}</td>
+                <td class="nowrap">${firstTag}</td>
+                <td class="nowrap">${displayDate}</td>
+                <td class="nowrap">${weekday}</td>
+                <td class="nowrap"></td>
+                <td class="nowrap">${episodeCount}</td>
+            `;
+            if (post.classList.contains('hidden')) {
+                newRow.classList.add('hidden');
+            }
+            tableBody.appendChild(newRow);
+        });
+    }
+
+    homeLink.addEventListener('click', function() {
+        showHome();
     });
-}
 
+    aboutLink.addEventListener('click', function() {
+        showAbout();
+    });
 
-  homeLink.addEventListener('click', function() {
-      showHome();
-  });
+    // 切换帖子显示和隐藏状态功能
+    document.querySelector('.t-bar-support').addEventListener('click', function() {
+        let posts = document.querySelectorAll('.post');
+        let tableRows = tableContainer ? tableContainer.querySelectorAll('tbody tr') : [];
 
-  aboutLink.addEventListener('click', function() {
-      showAbout();
-  });
+        if (this.textContent === '显示') {
+            posts.forEach(post => post.classList.remove('hidden'));
+            tableRows.forEach(row => row.classList.remove('hidden'));
+            this.textContent = '隐藏';
+        } else {
+            posts.forEach(post => {
+                if (post.getAttribute('data-hidden') === 'true') {
+                    post.classList.add('hidden');
+                }
+            });
+            tableRows.forEach(row => {
+                let title = row.querySelector('td').textContent.trim();
+                let matchingPost = Array.from(posts).find(post => post.querySelector('.post-title h2').textContent.trim() === title);
+                if (matchingPost && matchingPost.getAttribute('data-hidden') === 'true') {
+                    row.classList.add('hidden');
+                }
+            });
+            this.textContent = '显示';
+        }
+    });
 
-  // 切换帖子显示和隐藏状态功能
-  document.querySelector('.t-bar-support').addEventListener('click', function() {
-      let posts = document.querySelectorAll('.post');
-      let tableRows = tableContainer ? tableContainer.querySelectorAll('tbody tr') : [];
-
-      if (this.textContent === '显示') {
-          posts.forEach(post => post.classList.remove('hidden'));
-          tableRows.forEach(row => row.classList.remove('hidden'));
-          this.textContent = '隐藏';
-      } else {
-          posts.forEach(post => {
-              if (post.getAttribute('data-hidden') === 'true') {
-                  post.classList.add('hidden');
-              }
-          });
-          tableRows.forEach(row => {
-              let title = row.querySelector('td').textContent.trim();
-              let matchingPost = Array.from(posts).find(post => post.querySelector('.post-title h2').textContent.trim() === title);
-              if (matchingPost && matchingPost.getAttribute('data-hidden') === 'true') {
-                  row.classList.add('hidden');
-              }
-          });
-          this.textContent = '显示';
-      }
-  });
-
-  // 页面加载时调用排序和分页函数
-  sortPostsByDate();
-  paginatePosts();
+    // 页面加载时调用排序和分页函数
+    sortPostsByDate();
+    paginatePosts();
 });
