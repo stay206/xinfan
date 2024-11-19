@@ -216,12 +216,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-            <td class="nowrap">${title}</td>
-            <td class="nowrap">${subtitle}</td>
+            <td class="left-align">${title}</td>
+            <td class="left-align">${subtitle}</td>
             <td class="nowrap">${firstTag}</td>
             <td class="nowrap">${date}</td>
             <td class="nowrap">${weekday}</td>
-            <td class="nowrap">1</td>
+            <td class="nowrap"></td>
             <td class="nowrap"></td>
         `;
         if (post.classList.contains('hidden')) {
@@ -230,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tableBody.appendChild(newRow);
     });
 }
+
 
   homeLink.addEventListener('click', function() {
       showHome();
