@@ -57,7 +57,7 @@
                     const formattedDate = lastUpdatedDate.toLocaleDateString('zh-CN', options);
                     lastUpdatedElement.innerHTML = formattedDate;
                 </script>
-                慢速更新<br>
+                点击对应内容查看PV<br>
             </div>
             <div style="text-align: center;">
                 <b onclick="javascript:document.querySelector('.web_notice').remove()">
