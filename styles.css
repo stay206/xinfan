@@ -706,13 +706,28 @@ th, td {
         position: relative;
         padding-left: 50%;
         text-align: left;
+        white-space: normal; /* 允许正常换行 */
+        word-wrap: break-word;
     }
 
     td:before {
         content: attr(data-label);
         position: absolute;
         left: 10px;
+        top: 10px; /* 确保表头信息在内容之上 */
         white-space: nowrap;
         font-weight: bold;
+    }
+    
+    td:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: #ddd;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        z-index: -1; /* 确保分隔线在内容之下 */
     }
 }
