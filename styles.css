@@ -700,7 +700,7 @@ th, td {
 
     td {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end; /* 内容右对齐 */
         align-items: center;
         border: none;
         position: relative;
