@@ -649,3 +649,79 @@ body.is-loading #banner:after {
     /* 根据需要修改样式 */
     font-weight: bold;
 }
+
+/* 表格样式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    /* 自适应表格 */
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    /* 文字居中 */
+    word-wrap: break-word;
+    /* 允许单词换行 */
+}
+
+/* 左对齐的表格内容 */
+.left-align {
+    text-align: left;
+}
+
+/* 禁止换行 */
+.nowrap {
+    white-space: nowrap;
+}
+
+/* 媒体查询：当屏幕宽度小于等于768px（即移动设备）时应用这些样式 */
+@media only screen and (max-width: 768px) {
+
+    table,
+    th,
+    td {
+        display: block;
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    thead {
+        display: none;
+        /* 隐藏表头 */
+    }
+
+    tr {
+        margin-bottom: 10px;
+        display: block;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+}
