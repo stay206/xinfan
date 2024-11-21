@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM fully loaded and parsed');
 
   // 获取当前HTML文件的链接，并修改后缀为 "zc.html" 
-  const currentURL = window.location.href; 
+  const currentURL = window.location.href;
   const zcURL = currentURL.replace(/\/[^\/]*$/, '/zc.html');
 
   // 使用给出的 URL 读取 zc 文件内容并插入到 <main id="posts-container"> 标签内
@@ -218,14 +218,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const newRow = document.createElement('tr');
       newRow.innerHTML = `
-        <td class="left-align" data-label="中文名">${title}</td>
-        <td class="left-align" data-label="原名">${subtitle}</td>
-        <td class="nowrap" data-label="类型">${firstTag}</td>
-        <td class="nowrap" data-label="播放时间">${displayDate}</td>
-        <td class="nowrap" data-label="放送星期">${weekday}</td>
-        <td class="nowrap" data-label="国内更新时间">${updateDate}</td>
-        <td class="nowrap" data-label="集数">${episodeCount}</td>
-      `;
+            <td class="left-align" data-label="中文名">${title}</td>
+            <td class="left-align" data-label="原名">${subtitle}</td>
+            <td class="nowrap" data-label="类型">${firstTag}</td>
+            <td class="nowrap" data-label="播放时间">${displayDate}</td>
+            <td class="nowrap" data-label="放送星期">${weekday}</td>
+            <td class="nowrap" data-label="国内更新时间">${updateDate}</td>
+            <td class="nowrap" data-label="集数">${episodeCount}</td>
+        `;
       if (post.classList.contains('hidden')) {
         newRow.classList.add('hidden');
       }
