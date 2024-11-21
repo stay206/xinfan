@@ -167,6 +167,72 @@ document.addEventListener('DOMContentLoaded', function () {
     return isNaN(date.getUTCDay()) ? "" : weekdays[date.getUTCDay()];
   }
 
+  // 填充表格
+  function populateTable() {
+    const tableBody = tableContainer.querySelector('tbody');
+    const posts = Array.from(document.querySelectorAll('.post'));
+
+    // 将周几映射到数字
+    const weekdayMap = {
+      '星期日': 0,
+      '星期一': 1,
+      '星期二': 2,
+      '星期三': 3,
+      '星期四': 4,
+      '星期五': 5,
+      '星期六': 6
+    };
+
+    // 对帖子按放送星期排序，然后按播放时间排序
+    posts.sort((a, b) => {
+      const dateA = a.getAttribute('data-date');
+      const dateB = b.getAttribute('data-date');
+      const weekdayA = weekdayMap[getWeekday(dateA)] || 7; // 如果没有日期，则默认为星期日
+      const weekdayB = weekdayMap[getWeekday(dateB)] || 7;
+
+      if (weekdayA === weekdayB) {
+        return dateA.localeCompare(dateB);
+      } else {
+        return weekdayA - weekdayB;
+      }
+    });
+
+    // 填充表格
+    posts.forEach(post => {
+      const titleElement = post.querySelector('.post-title h2');
+      const subtitleElement = post.querySelector('.post-title h3');
+      const firstTagElement = post.querySelector('.tag');
+      const date = post.getAttribute('data-date');
+      const weekday = getWeekday(date);
+      const episodeElement = post.querySelector('.jishu');
+      const updateElement = post.querySelector('div[style*="display: none"]');
+
+      const title = titleElement ? titleElement.textContent.trim() : "";
+      const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+      const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
+      const episodeCount = episodeElement ? episodeElement.textContent.trim() : "";
+      const updateDate = updateElement ? updateElement.textContent.trim() : "";
+
+      // 判断日期是否为99
+      const displayDate = date.endsWith('-99') ? date.substring(0, 7) : date;
+
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="left-align">${title}</td>
+        <td class="left-align">${subtitle}</td>
+        <td class="nowrap">${firstTag}</td>
+        <td class="nowrap">${displayDate}</td>
+        <td class="nowrap">${weekday}</td>
+        <td class="nowrap">${updateDate}</td>
+        <td class="nowrap">${episodeCount}</td>
+      `;
+      if (post.classList.contains('hidden')) {
+        newRow.classList.add('hidden');
+      }
+      tableBody.appendChild(newRow);
+    });
+  }
+
   // 显示和隐藏 "关于" 和 "首页" 部分的功能
   const homeLink = document.querySelector('nav a[href="#home"]');
   const aboutLink = document.querySelector('nav a[href="#about"]');
@@ -201,45 +267,6 @@ document.addEventListener('DOMContentLoaded', function () {
     postsContainer.style.display = 'none';
     pagination.style.display = 'none';
     disablePaginationButton.style.display = 'none';
-  }
-
-  function populateTable() {
-    const tableBody = tableContainer.querySelector('tbody');
-    const posts = document.querySelectorAll('.post');
-
-    posts.forEach(post => {
-      const titleElement = post.querySelector('.post-title h2');// 获取中文名
-      const subtitleElement = post.querySelector('.post-title h3');// 获取原名
-      const firstTagElement = post.querySelector('.tag');// 获取类型
-      const date = post.getAttribute('data-date');// 播放时间
-      const weekday = getWeekday(date); // 获取播放星期
-      const episodeElement = post.querySelector('.jishu');// 获取集数
-      const updateElement = post.querySelector('div[style*="display: none"]'); // 获取国内更新时间的元素
-
-      const title = titleElement ? titleElement.textContent.trim() : "";
-      const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
-      const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
-      const episodeCount = episodeElement ? episodeElement.textContent.trim() : ""; // 默认为空
-      const updateDate = updateElement ? updateElement.textContent.trim() : ""; // 获取国内更新时间
-
-      // 判断日期是否为99
-      const displayDate = date.endsWith('-99') ? date.substring(0, 7) : date;
-
-      const newRow = document.createElement('tr');
-      newRow.innerHTML = `
-                <td class="left-align">${title}</td>
-                <td class="left-align">${subtitle}</td>
-                <td class="nowrap">${firstTag}</td>
-                <td class="nowrap">${displayDate}</td>
-                <td class="nowrap">${weekday}</td>
-                <td class="nowrap">${updateDate}</td>
-                <td class="nowrap">${episodeCount}</td>
-            `;
-      if (post.classList.contains('hidden')) {
-        newRow.classList.add('hidden');
-      }
-      tableBody.appendChild(newRow);
-    });
   }
 
   homeLink.addEventListener('click', function () {
@@ -324,4 +351,3 @@ function setRandomGradient() {
 
 // 页面加载时设置随机渐变背景
 document.addEventListener('DOMContentLoaded', setRandomGradient);
-
