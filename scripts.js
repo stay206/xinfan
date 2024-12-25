@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM fully loaded and parsed');
 
-  // 获取当前HTML文件的链接，并修改后缀为 "zc.html" 
+  // 获取当前HTML文件的链接，并修改后缀为 "zc.html"
   const currentURL = window.location.href; 
   const zcURL = currentURL.replace(/\/[^\/]*$/, '/zc.html');
 
@@ -13,52 +13,51 @@ document.addEventListener('DOMContentLoaded', function () {
       const postsContainer = document.getElementById('posts-container');
       postsContainer.innerHTML = zcPosts;
       initializePosts();
-      setDefaultImageIfEmpty(); // 调用设置默认图片的函数
+      setDefaultImageIfEmpty();
     })
     .catch(error => {
       console.error('Error fetching the posts:', error);
     });
 
-// 初始化帖子数据
-function initializePosts() {
-  let posts = document.querySelectorAll('.post');
-  posts.forEach(post => {
-    let titleElement = post.querySelector('.post-title h2');
-    let subtitleElement = post.querySelector('.post-title h3');
-    let title = titleElement ? titleElement.textContent.trim() : "";
-    let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
-    let fullTitle = title + " " + subtitle;
-    post.setAttribute('data-title', fullTitle);
+  // 初始化帖子数据
+  function initializePosts() {
+    let posts = document.querySelectorAll('.post');
+    posts.forEach(post => {
+      let titleElement = post.querySelector('.post-title h2');
+      let subtitleElement = post.querySelector('.post-title h3');
+      let title = titleElement ? titleElement.textContent.trim() : "";
+      let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+      let fullTitle = title + " " + subtitle;
+      post.setAttribute('data-title', fullTitle);
 
-    let tagsElements = post.querySelectorAll('.tag');
-    let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
-    post.setAttribute('data-tags', tags);
+      let tagsElements = post.querySelectorAll('.tag');
+      let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
+      post.setAttribute('data-tags', tags);
 
-    let dateElement = post.querySelector('.date-text');
-    if (dateElement) {
-      let dateText = dateElement.textContent.trim();
-      let dateMatches = dateText.match(/(\d{4})年(\d{1,2})月(?:(\d{1,2})日?)?/);
-      // 判断日期文本是否为"xxxx年春/夏/秋/冬"
-      if (dateText.includes('春') || dateText.includes('夏') || dateText.includes('秋') || dateText.includes('冬')) {
-        // 将日期设为空并将排序键设为较大值
-        post.setAttribute('data-date', '');
-        post.setAttribute('data-sort-key', '9999-99-99');
-      } else if (dateMatches) {
-        let year = dateMatches[1];
-        let month = dateMatches[2].padStart(2, '0'); // 保证月份是两位数
-        let day = dateMatches[3] ? dateMatches[3].padStart(2, '0') : '99'; // 如果日期部分缺失，默认为99日
-        let formattedDate = `${year}-${month}-${day}`;
-        post.setAttribute('data-date', formattedDate);
-        post.setAttribute('data-sort-key', `${year}-${month}-${day === '99' ? '9999' : day}`); // 用于排序的键
+      let dateElement = post.querySelector('.date-text');
+      if (dateElement) {
+        let dateText = dateElement.textContent.trim();
+        let dateMatches = dateText.match(/(\d{4})年(\d{1,2})月(?:(\d{1,2})日?)?/);
+        // 判断日期文本是否为"xxxx年春/夏/秋/冬"
+        if (dateText.includes('春') || dateText.includes('夏') || dateText.includes('秋') || dateText.includes('冬')) {
+          // 将日期设为空并将排序键设为较大值
+          post.setAttribute('data-date', '');
+          post.setAttribute('data-sort-key', '9999-99-99');
+        } else if (dateMatches) {
+          let year = dateMatches[1];
+          let month = dateMatches[2].padStart(2, '0'); // 保证月份是两位数
+          let day = dateMatches[3] ? dateMatches[3].padStart(2, '0') : '99'; // 如果日期部分缺失，默认为99日
+          let formattedDate = `${year}-${month}-${day}`;
+          post.setAttribute('data-date', formattedDate);
+          post.setAttribute('data-sort-key', `${year}-${month}-${day === '99' ? '9999' : day}`); // 用于排序的键
+        }
       }
-    }
-  });
+    });
 
-  sortPostsByDate(); // 调用排序函数
-  paginatePosts(); // 调用分页函数
-  addPostClickEvents(); // 添加点击事件到每个帖子
-}
-
+    sortPostsByDate(); // 调用排序函数
+    paginatePosts(); // 调用分页函数
+    addPostClickEvents(); // 添加点击事件到每个帖子
+  }
 
   // 设置默认图片的函数
   function setDefaultImageIfEmpty() {
@@ -176,36 +175,17 @@ function initializePosts() {
 
   // 填充表格
   function populateTable() {
-    const tableBody = tableContainer.querySelector('tbody');
+    const tableBody = document.querySelector('tbody');
     const posts = Array.from(document.querySelectorAll('.post'));
-
-    // 将周几映射到数字
-    const weekdayMap = {
-      '星期日': 0,
-      '星期一': 1,
-      '星期二': 2,
-      '星期三': 3,
-      '星期四': 4,
-      '星期五': 5,
-      '星期六': 6
-    };
-
-    // 对帖子按放送星期排序，然后按播放时间排序
-    posts.sort((a, b) => {
-      const dateA = a.getAttribute('data-date');
-      const dateB = b.getAttribute('data-date');
-      const weekdayA = weekdayMap[getWeekday(dateA)] || 7; // 如果没有日期，则默认为星期日
-      const weekdayB = weekdayMap[getWeekday(dateB)] || 7;
-
-      if (weekdayA === weekdayB) {
-        return dateA.localeCompare(dateB);
-      } else {
-        return weekdayA - weekdayB;
-      }
+    
+    // 过滤出包含"xxxx年春/夏/秋/冬"的帖子
+    const specialPosts = posts.filter(post => {
+      const dateElement = post.querySelector('.date-text');
+      return dateElement && (dateElement.textContent.includes('春') || dateElement.textContent.includes('夏') || dateElement.textContent.includes('秋') || dateElement.textContent.includes('冬'));
     });
 
-    // 填充表格
-    posts.forEach(post => {
+    // 处理普通帖子
+    posts.filter(post => !specialPosts.includes(post)).forEach(post => {
       const titleElement = post.querySelector('.post-title h2');
       const subtitleElement = post.querySelector('.post-title h3');
       const firstTagElement = post.querySelector('.tag');
@@ -220,7 +200,6 @@ function initializePosts() {
       const episodeCount = episodeElement ? episodeElement.textContent.trim() : "";
       const updateDate = updateElement ? updateElement.textContent.trim() : "";
 
-      // 判断日期是否为99
       const displayDate = date.endsWith('-99') ? date.substring(0, 7) : date;
 
       const newRow = document.createElement('tr');
@@ -238,6 +217,38 @@ function initializePosts() {
       }
       tableBody.appendChild(newRow);
     });
+
+    // 处理包含 "xxxx年春/夏/秋/冬" 的特殊帖子
+    specialPosts.forEach(post => {
+      const titleElement = post.querySelector('.post-title h2');
+      const subtitleElement = post.querySelector('.post-title h3');
+      const firstTagElement = post.querySelector('.tag');
+      const dateElement = post.querySelector('.date-text');
+      const episodeElement = post.querySelector('.jishu');
+      const updateElement = post.querySelector('div[style*="display: none"]');
+
+      const title = titleElement ? titleElement.textContent.trim() : "";
+      const subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+      const firstTag = firstTagElement ? firstTagElement.textContent.trim() : "";
+      const episodeCount = episodeElement ? episodeElement.textContent.trim() : "";
+      const updateDate = updateElement ? updateElement.textContent.trim() : "";
+      const season = dateElement ? dateElement.textContent.trim() : "";
+
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="left-align" data-label="中文名">${title}</td>
+        <td class="left-align" data-label="原名">${subtitle}</td>
+        <td class="nowrap" data-label="类型">${firstTag}</td>
+        <td class="nowrap" data-label="播放时间">${season}</td>
+        <td class="nowrap" data-label="放送星期"></td>
+        <td class="nowrap" data-label="国内更新时间">${updateDate}</td>
+        <td class="nowrap" data-label="集数">${episodeCount}</td>
+      `;
+      if (post.classList.contains('hidden')) {
+        newRow.classList.add('hidden');
+      }
+      tableBody.appendChild(newRow);
+    });
   }
 
   // 显示和隐藏 "关于" 和 "首页" 部分的功能
@@ -246,8 +257,7 @@ function initializePosts() {
   const postsContainer = document.getElementById('posts-container');
   const pagination = document.getElementById('pagination');
   const disablePaginationButton = document.getElementById('disable-pagination-btn');
-  const banner = document.getElementById('banner');
-  let tableContainer; // 定义 tableContainer
+  let tableContainer;
 
   function showHome() {
     postsContainer.style.display = '';
