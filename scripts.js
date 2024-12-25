@@ -19,39 +19,46 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('Error fetching the posts:', error);
     });
 
-  // 初始化帖子数据
-  function initializePosts() {
-    let posts = document.querySelectorAll('.post');
-    posts.forEach(post => {
-      let titleElement = post.querySelector('.post-title h2');
-      let subtitleElement = post.querySelector('.post-title h3');
-      let title = titleElement ? titleElement.textContent.trim() : "";
-      let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
-      let fullTitle = title + " " + subtitle;
-      post.setAttribute('data-title', fullTitle);
+// 初始化帖子数据
+function initializePosts() {
+  let posts = document.querySelectorAll('.post');
+  posts.forEach(post => {
+    let titleElement = post.querySelector('.post-title h2');
+    let subtitleElement = post.querySelector('.post-title h3');
+    let title = titleElement ? titleElement.textContent.trim() : "";
+    let subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
+    let fullTitle = title + " " + subtitle;
+    post.setAttribute('data-title', fullTitle);
 
-      let tagsElements = post.querySelectorAll('.tag');
-      let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
-      post.setAttribute('data-tags', tags);
+    let tagsElements = post.querySelectorAll('.tag');
+    let tags = Array.from(tagsElements).map(tagElement => tagElement.textContent.trim()).join(',');
+    post.setAttribute('data-tags', tags);
 
-      let dateElement = post.querySelector('.date-text');
-      if (dateElement) {
-        let dateText = dateElement.textContent.match(/(\d{4})年(\d{1,2})月(?:(\d{1,2})日?)?/);
-        if (dateText) {
-          let year = dateText[1];
-          let month = dateText[2].padStart(2, '0'); // 保证月份是两位数
-          let day = dateText[3] ? dateText[3].padStart(2, '0') : '99'; // 如果日期部分缺失，默认为99日
-          let formattedDate = `${year}-${month}-${day}`;
-          post.setAttribute('data-date', formattedDate);
-          post.setAttribute('data-sort-key', `${year}-${month}-${day === '99' ? '9999' : day}`); // 用于排序的键
-        }
+    let dateElement = post.querySelector('.date-text');
+    if (dateElement) {
+      let dateText = dateElement.textContent.trim();
+      let dateMatches = dateText.match(/(\d{4})年(\d{1,2})月(?:(\d{1,2})日?)?/);
+      // 判断日期文本是否为"xxxx年春/夏/秋/冬"
+      if (dateText.includes('春') || dateText.includes('夏') || dateText.includes('秋') || dateText.includes('冬')) {
+        // 将日期设为空并将排序键设为较大值
+        post.setAttribute('data-date', '');
+        post.setAttribute('data-sort-key', '9999-99-99');
+      } else if (dateMatches) {
+        let year = dateMatches[1];
+        let month = dateMatches[2].padStart(2, '0'); // 保证月份是两位数
+        let day = dateMatches[3] ? dateMatches[3].padStart(2, '0') : '99'; // 如果日期部分缺失，默认为99日
+        let formattedDate = `${year}-${month}-${day}`;
+        post.setAttribute('data-date', formattedDate);
+        post.setAttribute('data-sort-key', `${year}-${month}-${day === '99' ? '9999' : day}`); // 用于排序的键
       }
-    });
+    }
+  });
 
-    sortPostsByDate(); // 调用排序函数
-    paginatePosts(); // 调用分页函数
-    addPostClickEvents(); // 添加点击事件到每个帖子
-  }
+  sortPostsByDate(); // 调用排序函数
+  paginatePosts(); // 调用分页函数
+  addPostClickEvents(); // 添加点击事件到每个帖子
+}
+
 
   // 设置默认图片的函数
   function setDefaultImageIfEmpty() {
